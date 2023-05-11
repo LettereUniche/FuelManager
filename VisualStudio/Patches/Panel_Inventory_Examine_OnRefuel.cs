@@ -7,15 +7,15 @@
     {
         private static bool Prefix(Panel_Inventory_Examine __instance)
         {
-            if (!FuelUtils.IsFuelItem(__instance.m_GearItem)) return true;
+            if (!FuelUtils.IsFuelItem(__instance.m_GearItem.GetComponent<GearItem>())) return true;
 
             if (ButtonUtils.IsSelected(__instance.m_Button_Unload))
             {
-                FuelUtils.Drain(__instance.m_GearItem);
+                FuelUtils.Drain(__instance.m_GearItem.GetComponent<GearItem>());
             }
             else
             {
-                FuelUtils.Refuel(__instance.m_GearItem);
+                FuelUtils.Refuel(__instance.m_GearItem.GetComponent<GearItem>());
             }
 
             return false;

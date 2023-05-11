@@ -8,7 +8,7 @@
     {
         private static void Postfix(Panel_Inventory_Examine __instance)
         {
-            if (__instance == null || __instance.m_GearItem == null || !FuelUtils.IsFuelItem(__instance.m_GearItem)) return;
+            if (__instance == null || __instance.m_GearItem.GetComponent<GearItem>() == null || !FuelUtils.IsFuelItem(__instance.m_GearItem.GetComponent<GearItem>())) return;
 
             Vector3 position = ButtonUtils.GetBottomPosition(
                 __instance.m_Button_Harvest,
@@ -19,7 +19,7 @@
 
             __instance.m_Button_Unload.gameObject.SetActive(true);
 
-            float litersToDrain = FuelUtils.GetLitersToDrain(__instance.m_GearItem);
+            float litersToDrain = FuelUtils.GetLitersToDrain(__instance.m_GearItem.GetComponent<GearItem>());
             __instance.m_Button_Unload.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(litersToDrain < FuelUtils.MIN_LITERS);
             //if (litersToDrain < FuelUtils.MIN_LITERS) __instance.m_Button_Unload.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(true);
             //if (litersToDrain < FuelUtils.MIN_LITERS) __instance.m_Button_Unload.gameObject.SetActive(false);

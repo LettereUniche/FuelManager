@@ -96,7 +96,8 @@
 #pragma warning restore CS8604 // Possible null reference argument.
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             //if (unloadPanel == null) return;
-            SetButtonLocalizationKey(unloadPanel, localizationKey);
+            MelonLogger.Msg($"[FuelManager]: SetUnloadButtonLabel({unloadPanel}, {localizationKey})");
+            SetButtonLocalizationKey(gameObject: unloadPanel, localizationKey);
         }
     }
 }
