@@ -29,7 +29,7 @@ This is a mod for **The Long Dark** by Hinterland Studio, Inc.
 
 ## Localizations
 
-You can help make Better-Fuel-Management even better! Better-Fuel-Management has localized text that can be translated into other languages. You can find a list of compatible languages [here](https://github.com/ds5678/ModComponent/blob/master/docs/Localizations.md) and the localized text file [here]([https://github.com/ds5678/Better-Fuel-Management](https://github.com/Arkhorse/FuelManager)/blob/master/Unity/Assets/Localization.json). You can contribute your translations by doing the following:
+You can help make Better-Fuel-Management even better! Better-Fuel-Management has localized text that can be translated into other languages. You can find a list of compatible languages [here](https://github.com/ds5678/ModComponent/blob/master/docs/Localizations.md) and the localized text file [here](https://github.com/Arkhorse/FuelManager/blob/main/Unity/Assets/Localization.json). You can contribute your translations by doing the following:
 * Make a Github account
 * [Fork](https://docs.github.com/en/github/collaborating-with-pull-requests/working-with-forks/about-forks) this project
 * Edit the localization file on your fork
