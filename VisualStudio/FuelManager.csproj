@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="STBlade.Modding.TLD.GearSpawner" Version="2.3.1" />
+		<PackageReference Include="STBlade.Modding.TLD.Il2CppAssemblies.Windows" Version="2.10.0" />
+		<PackageReference Include="STBlade.Modding.TLD.ModComponent" Version="6.0.1" />
+		<PackageReference Include="STBlade.Modding.TLD.ModSettings" Version="1.9.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Using Include="HarmonyLib" />
+	  <Using Include="Il2Cpp" />
+	  <Using Include="MelonLoader" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<PropertyGroup>
+		<TheLongDarkPath>O:\SteamLibrary\steamapps\common\TheLongDark</TheLongDarkPath>
+		<Title>Fuel Manager</Title>
+		<Authors></Authors>
+		<Company>$(AssemblyName)</Company>
+		<Description>Adds settings to manage fuel</Description>
+		<Copyright>MIT License</Copyright>
+		<PackageProjectUrl></PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/Arkhorse/FuelManager</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>TheLongDark</PackageTags>
+		<NeutralLanguage>en</NeutralLanguage>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<FileVersion>1.0.0</FileVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DebugType>embedded</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DebugType>embedded</DebugType>
+	</PropertyGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy /y &quot;$(BaseOutputPath)\$(Configuration)\net6.0\FuelManager.dll&quot; &quot;$(TheLongDarkPath)\Mods&quot;" />
+	</Target>
+	
+</Project>

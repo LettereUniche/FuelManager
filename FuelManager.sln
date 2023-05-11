@@ -3,7 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelManager", "FuelManager.csproj", "{16D0AAA2-822C-4D52-85B2-AF5762172A56}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelManager", "VisualStudio\FuelManager.csproj", "{16D0AAA2-822C-4D52-85B2-AF5762172A56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80632573-EBAD-4C8E-80A7-572673534033}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
