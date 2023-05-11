@@ -90,7 +90,11 @@
 
         internal static void SetUnloadButtonLabel(string localizationKey)
         {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Possible null reference argument.
             GameObject unloadPanel = GetChild(_Panel_Inventory_Examine?.m_ExamineWidget?.gameObject, "UnloadRiflePanel");
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             //if (unloadPanel == null) return;
             SetButtonLocalizationKey(unloadPanel, localizationKey);
         }
