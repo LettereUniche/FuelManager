@@ -14,11 +14,14 @@
     {
         private static bool Prefix(GearItem gi, ref bool __result)
         {
-            if (FuelUtils.IsFuelItem(gi))
+            if (!gi) return false;
+
+            if (FuelUtils.IsFuelItem(gi.GetComponent<GearItem>()))
             {
                 __result = true;
                 return false;
             }
+
             return true;
         }
     }

@@ -22,7 +22,7 @@
         public const float MIN_LITERS                                       = 0.001f;
         private const string REFUEL_AUDIO                                   = "Play_SndActionRefuelLantern";
         //internal static readonly float REFUEL_TIME                          = Settings._settings.refuelTime;
-        internal static readonly float REFUEL_TIME                          = 3f;
+        private const float REFUEL_TIME                          = 3f;
 
         #region Add
 
@@ -30,12 +30,13 @@
         {
             if (IsKeroseneLamp(gearItem))
             {
-                KeroseneLampItem lamp = gearItem.GetComponent<KeroseneLampItem>();
-                float maxFuelToAdd = lamp.GetMaxFuelToAdd();
-                float num = Mathf.Min(liters, maxFuelToAdd);
+                //KeroseneLampItem lamp = gearItem.GetComponent<KeroseneLampItem>();
+                //float maxFuelToAdd = lamp.GetMaxFuelToAdd();
+                //float num = Mathf.Min(liters, maxFuelToAdd);
 
-                lamp.m_CurrentFuelLiters += num;
-                lamp.m_CurrentFuelLiters = Mathf.Clamp(lamp.m_CurrentFuelLiters, 0f, lamp.m_MaxFuelLiters);
+                //lamp.m_CurrentFuelLiters += num;
+                //lamp.m_CurrentFuelLiters = Mathf.Clamp(lamp.m_CurrentFuelLiters, 0f, lamp.m_MaxFuelLiters);
+                gearItem.m_KeroseneLampItem.m_CurrentFuelLiters += liters;
             }
             else if (IsFuelContainer(gearItem))
             {
@@ -95,8 +96,72 @@
         {
             return IsFuelContainer(gearItem) || IsKeroseneLamp(gearItem);
         }
-
         #endregion
+        #region new
+        // NEW
+
+        /// <summary>
+        /// Gets currently available liters of fuel
+        /// </summary>
+        /// <returns></returns>
+        internal static float GetInventoryLiters()
+        {
+            return GameManager.GetPlayerManagerComponent().GetTotalLiters(GearLiquidTypeEnum.Kerosene);
+        }
+
+        /// <summary>
+        /// Gets the amount of drained fuel
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <param name="gearLiquidTypeEnum"></param>
+        /// <returns></returns>
+        internal static float GetInventoryDeductionLiters(float amount, GearLiquidTypeEnum gearLiquidTypeEnum = GearLiquidTypeEnum.Kerosene)
+        {
+            return GameManager.GetPlayerManagerComponent().DeductLiquidFromInventory(amount, gearLiquidTypeEnum);
+        }
+
+        /*
+        /// <summary>
+        /// Adds the requested fuel to the requested item
+        /// </summary>
+        /// <param name="gi">The target item</param>
+        /// <param name="fuelLiters">the amount to add</param>
+        /// <returns>Total added to item, if 0f nothing was added</returns>
+        internal static float AddFuel(GearItem gi, float fuelLiters)
+        {
+            if (gi && fuelLiters > MIN_LITERS)
+            {
+                if (IsKeroseneLamp(gi))
+                {
+                    KeroseneLampItem lamp = gi.GetComponent<KeroseneLampItem>();                                    // instintate lamp
+                    float maxFuelToAdd = lamp.GetMaxFuelToAdd();                                                    // get lamp max capacity
+                    float num = Mathf.Min(fuelLiters, maxFuelToAdd);                                                // ?
+
+                    lamp.m_CurrentFuelLiters += num;                                                                // add num to current liters
+                    lamp.m_CurrentFuelLiters = Mathf.Clamp(lamp.m_CurrentFuelLiters, 0f, lamp.m_MaxFuelLiters);     // ensure current liters is not over max liters
+
+                    return fuelLiters - num;
+                }
+                else if (IsFuelItem(gi))
+                {
+                    GearItem gearItem = gi.GetComponent<GearItem>();
+                    LiquidItem liquidItem = gearItem.m_LiquidItem;
+
+                    float currentLiters = liquidItem.m_LiquidLiters;
+                    float maxFuelToAdd = liquidItem.m_LiquidCapacityLiters - currentLiters;
+                    float num = Mathf.Min(fuelLiters, maxFuelToAdd);
+
+                    liquidItem.m_LiquidLiters += num;
+                    liquidItem.m_LiquidLiters = Mathf.Clamp(currentLiters, 0f, maxFuelToAdd);
+
+                    return fuelLiters - num;
+                }
+            }
+            return 0f;
+        }
+        */
+        #endregion
+        // OLD
         #region Get
 
         /// <summary>
@@ -137,15 +202,17 @@
         internal static float GetLitersToDrain(GearItem gearItem)
         {
             return Mathf.Min(
-                        GetTotalSpaceLiters(gearItem),          //available capacity
-                        GetIndividualCurrentLiters(gearItem));  //available fuel
+                        GetIndividualCurrentLiters(gearItem),  //available fuel
+                        GetTotalSpaceLiters(gearItem)          //available capacity
+                        );
         }
 
         internal static float GetLitersToRefuel(GearItem gearItem)
         {
             return Mathf.Min(
-                GetTotalCurrentLiters(gearItem), //current amount of kerosene in other containers
-                GetIndividualSpaceLiters(gearItem)); //amount of space in the fuel container
+                        GetIndividualSpaceLiters(gearItem),     //amount of space in the fuel container
+                        GetTotalCurrentLiters(gearItem)         //current amount of kerosene in other containers
+                        );
         }
 
         /// <summary>
@@ -248,31 +315,34 @@
         internal static void Drain(GearItem gearItem)
         {
             //_Panel_Inventory_Examine.m_GearItem = gearItem.GetComponent<GearItem>();
-            Panel_Inventory_Examine _Panel_Inventory_Examine = new();
-            MelonLogger.Msg($"[FuelManager]: Drain Start");
+            //Panel_Inventory_Examine _Panel_Inventory_Examine = new();
+            MelonLogger.Msg($"[FuelManager] Drain Start");
 
-            float currentLiters = GetIndividualCurrentLiters(gearItem.GetComponent<GearItem>());
+            Panel_Inventory_Examine panel = InterfaceManager.GetPanel<Panel_Inventory_Examine>();
 
-            MelonLogger.Msg($"[FuelManager]: item is {gearItem.name}, currentLiters: {currentLiters}");
+            float currentLiters     = GetIndividualCurrentLiters(panel.m_GearItem.GetComponent<GearItem>());
+            float totalCapacity     = GetTotalCapacityLiters(panel.m_GearItem.GetComponent<GearItem>());
+            float totalCurrent      = GetTotalCurrentLiters(panel.m_GearItem.GetComponent<GearItem>());
+
+            MelonLogger.Msg($"[FuelManager] currentLiters: {currentLiters}, totalCurrent {totalCurrent}, totalCapacity: {totalCapacity}");
+            MelonLogger.Msg($"[FuelManager] item is {gearItem.name}, GetComponent is {gearItem.GetComponent<GearItem>().name}");
+            MelonLogger.Msg($"[FuelManager] panel item is {panel.m_GearItem.name}, panel item GetComponent is {panel.m_GearItem.GetComponent<GearItem>().name}");
 
             if (currentLiters < MIN_LITERS)
             {
                 HUDMessage.AddMessage(Localization.Get("GAMEPLAY_BFM_AlreadyEmpty"));
                 GameAudioManager.PlayGUIError();
-                MelonLogger.Msg($"[FuelManager]: Already Empty, Drain End");
+                MelonLogger.Msg($"[FuelManager] Already Empty");
+                MelonLogger.Msg($"[FuelManager] Drain End");
                 return;
             }
-
-            float totalCapacity = GetTotalCapacityLiters(gearItem.GetComponent<GearItem>());
-            float totalCurrent = GetTotalCurrentLiters(gearItem.GetComponent<GearItem>());
-
-            MelonLogger.Msg($"[FuelManager]: totalCurrent {totalCurrent}, totalCapacity: {totalCapacity}");
 
             if (Mathf.Approximately(totalCapacity, totalCurrent))
             {
                 HUDMessage.AddMessage(Localization.Get("GAMEPLAY_BFM_NoFuelCapacityAvailable"));
                 GameAudioManager.PlayGUIError();
-                MelonLogger.Msg($"[FuelManager]: No Capacity, Drain End");
+                MelonLogger.Msg($"[FuelManager] No Capacity");
+                MelonLogger.Msg($"[FuelManager] Drain End");
                 return;
             }
 
@@ -289,45 +359,51 @@
                 new System.Action<bool, bool, float>(OnDrainFinished));
 
             // HACK: somehow this is needed to revert the button text to "Refuel", which will be active when draining finishes
-            ButtonUtils.SetButtonLocalizationKey(_Panel_Inventory_Examine.m_RefuelPanel.GetComponentInChildren<UIButton>(), "GAMEPLAY_Refuel");
-            MelonLogger.Msg($"[FuelManager]: Drain End");
+            ButtonUtils.SetButtonLocalizationKey(panel.m_RefuelPanel.GetComponentInChildren<UIButton>(), "GAMEPLAY_Refuel");
+            MelonLogger.Msg($"[FuelManager] Drain End");
         }
 
         internal static void Refuel(GearItem gearItem)
         {
             //_Panel_Inventory_Examine.m_GearItem = gearItem.GetComponent<GearItem>();
-            MelonLogger.Msg($"[FuelManager]: Refuel Start");
+            MelonLogger.Msg($"[FuelManager] Refuel Start");
 
-            Panel_Inventory_Examine _Panel_Inventory_Examine = new();
-            GearItem _GEARITEM = _Panel_Inventory_Examine.m_GearItem.GetComponent<GearItem>();
+            Panel_Inventory_Examine panel = InterfaceManager.GetPanel<Panel_Inventory_Examine>();
 
-            if (!_GEARITEM)
+            if (!panel.m_GearItem.GetComponent<GearItem>())
             {
                 GameAudioManager.PlayGUIError();
+                MelonLogger.Msg($"[FuelManager] Gear is not valid");
+                MelonLogger.Msg($"[FuelManager] Refuel End");
                 return;
             }
 
-            float currentLiters = GetIndividualCurrentLiters(_GEARITEM);
-            float capacityLiters = GetIndividualCapacityLiters(_GEARITEM);
+            //GearItem _GEARITEM = _Panel_Inventory_Examine.m_GearItem;
 
-            MelonLogger.Msg($"[FuelManager]: item is {_GEARITEM.name}, currentLiters: {currentLiters}, capacityLiters: {capacityLiters}");
+            float currentLiters             = GetIndividualCurrentLiters(panel.m_GearItem.GetComponent<GearItem>());
+            float capacityLiters            = GetIndividualCapacityLiters(panel.m_GearItem.GetComponent<GearItem>());
+            float totalCurrent              = GetTotalCurrentLiters(panel.m_GearItem.GetComponent<GearItem>());
+
+            float totalInventoryFuel        = GameManager.GetPlayerManagerComponent().GetCapacityLiters(GearLiquidTypeEnum.Kerosene);
+            float totalInventoryCapacity    = GameManager.GetPlayerManagerComponent().GetTotalLiters(GearLiquidTypeEnum.Kerosene);
+
+            MelonLogger.Msg($"[FuelManager] currentLiters: {currentLiters}, capacityLiters: {capacityLiters}, totalCurrent: {totalCurrent}");
+            MelonLogger.Msg($"[FuelManager] item is {gearItem.name}, GetComponent is {gearItem.GetComponent<GearItem>().name}");
+            MelonLogger.Msg($"[FuelManager] panel item is {panel.m_GearItem.name}, panel item GetComponent is {panel.m_GearItem.GetComponent<GearItem>().name}");
 
             if (Mathf.Approximately(currentLiters, capacityLiters))
             {
                 GameAudioManager.PlayGUIError();
                 HUDMessage.AddMessage(Localization.Get("GAMEPLAY_BFM_AlreadyFilled"), false, false);
-                MelonLogger.Msg($"[FuelManager]: Already filled, Refuel End");
+                MelonLogger.Msg($"[FuelManager] Already filled, Refuel End");
                 return;
             }
 
-            float totalCurrent = GetTotalCurrentLiters(_GEARITEM);
-            MelonLogger.Msg($"[FuelManager]: totalCurrent: {totalCurrent}");
-
-            if (Utils.IsZero(GameManager.GetPlayerManagerComponent().GetTotalLiters(GearLiquidTypeEnum.Kerosene), MIN_LITERS))
+            if (totalCurrent < MIN_LITERS)
             {
                 GameAudioManager.PlayGUIError();
                 HUDMessage.AddMessage(Localization.Get("GAMEPLAY_NoKeroseneavailable"), false);
-                MelonLogger.Msg($"[FuelManager]: No available fuel, Refuel End");
+                MelonLogger.Msg($"[FuelManager] No available fuel, Refuel End");
                 return;
             }
 
@@ -342,7 +418,8 @@
                 false,
                 true,
                 new System.Action<bool, bool, float>(OnRefuelFinished));
-            MelonLogger.Msg($"[FuelManager]: Refuel End");
+
+            MelonLogger.Msg($"[FuelManager] Refuel End");
         }
 
         #endregion
@@ -350,38 +427,40 @@
 
         private static void OnDrainFinished(bool success, bool playerCancel, float progress)
         {
-            //Panel_Inventory_Examine _Panel_Inventory_Examine = new();
+            MelonLogger.Msg($"[FuelManager] OnDrainFinished({success}, {playerCancel}, {progress})");
+            Panel_Inventory_Examine panel = InterfaceManager.GetPanel<Panel_Inventory_Examine>();
+            //GearItem _GEARITEM = _Panel_Inventory_Examine.m_GearItem;
 
-            MelonLogger.Msg($"[FuelManager]: OnDrainFinished({success}, {playerCancel}, {progress})");
-
-            if (IsFuelItem(_Panel_Inventory_Examine.m_GearItem))
+            if (panel.m_GearItem != null && IsFuelItem(panel.m_GearItem))
             {
-                float litersToDrain = GetLitersToDrain(_Panel_Inventory_Examine.m_GearItem) * progress;
-                AddTotalCurrentLiters(litersToDrain, _Panel_Inventory_Examine.m_GearItem);
-                AddLiters(_Panel_Inventory_Examine.m_GearItem, -litersToDrain);
+                float litersToDrain = GetLitersToDrain(panel.m_GearItem) * progress;
+                //float fuelLiters = GameManager.GetPlayerManagerComponent().DeductLiquidFromInventory(litersToDrain, GearLiquidTypeEnum.Kerosene);
 
-                MelonLogger.Msg($"[FuelManager]: litersToDrain:{litersToDrain}");
+                AddTotalCurrentLiters(litersToDrain, panel.m_GearItem); // replaced with above line
+                AddLiters(panel.m_GearItem, -litersToDrain); // keep the base reference for the GearItem as AddLiters deals with that
+
+                MelonLogger.Msg($"[FuelManager] item is {panel.m_GearItem.name}, itersToDrain:{litersToDrain}");
             }
 
-            _Panel_Inventory_Examine.RefreshMainWindow();
+            panel.RefreshMainWindow();
         }
 
         private static void OnRefuelFinished(bool success, bool playerCancel, float progress)
         {
-            MelonLogger.Msg($"[FuelManager]: OnRefuelFinished({success}, {playerCancel}, {progress})");
-            //Panel_Inventory_Examine _Panel_Inventory_Examine = new();
-            GearItem _GEARITEM = _Panel_Inventory_Examine.m_GearItem.GetComponent<GearItem>();
-
-            if (IsFuelItem(_GEARITEM))
+            MelonLogger.Msg($"[FuelManager] OnRefuelFinished(success:{success}, playerCancel:{playerCancel}, progress:{progress})");
+            Panel_Inventory_Examine panel = InterfaceManager.GetPanel<Panel_Inventory_Examine>();
+            //GearItem _GEARITEM = _Panel_Inventory_Examine.m_GearItem;
+            if (IsFuelItem(panel.m_GearItem))
             {
-                float litersToTransfer = GetLitersToRefuel(_GEARITEM) * progress;
-                AddTotalCurrentLiters(-litersToTransfer, _GEARITEM);
-                AddLiters(_GEARITEM, litersToTransfer);
+                float litersToTransfer = GetLitersToRefuel(panel.m_GearItem) * progress;
 
-                MelonLogger.Msg($"[FuelManager]: litersToTransfer:{litersToTransfer}");
+                AddTotalCurrentLiters(-litersToTransfer, panel.m_GearItem);
+                AddLiters(panel.m_GearItem, litersToTransfer);
+
+                MelonLogger.Msg($"[FuelManager] item is {panel.m_GearItem.name}, litersToTransfer:{litersToTransfer}");
             }
 
-            _Panel_Inventory_Examine.RefreshMainWindow();
+            panel.RefreshMainWindow();
         }
 
         #endregion

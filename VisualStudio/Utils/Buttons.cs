@@ -78,7 +78,7 @@
             uiTexture.mainTexture = texture;
         }
 
-        public static GameObject? GetChild(this GameObject gameObject, string childName)
+        internal static GameObject? GetChild(this GameObject gameObject, string childName)
         {
             return string.IsNullOrEmpty(childName)
                 || gameObject == null
@@ -88,16 +88,12 @@
                 : gameObject.transform.FindChild(childName).gameObject;
         }
 
-        internal static void SetUnloadButtonLabel(string localizationKey)
+        internal static void SetUnloadButtonLabel(Panel_Inventory_Examine panel, string localizationKey)
         {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-#pragma warning disable CS8604 // Possible null reference argument.
-            GameObject unloadPanel = GetChild(_Panel_Inventory_Examine?.m_ExamineWidget?.gameObject, "UnloadRiflePanel");
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            //if (unloadPanel == null) return;
-            MelonLogger.Msg($"[FuelManager]: SetUnloadButtonLabel({unloadPanel}, {localizationKey})");
+            GameObject unloadPanel = GetChild(panel?.m_ExamineWidget?.gameObject, "UnloadRiflePanel");
             SetButtonLocalizationKey(gameObject: unloadPanel, localizationKey);
+
+            MelonLogger.Msg($"[FuelManager]: SetUnloadButtonLabel({unloadPanel}, {localizationKey})");
         }
     }
 }

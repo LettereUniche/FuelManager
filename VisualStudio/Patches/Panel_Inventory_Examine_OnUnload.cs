@@ -7,9 +7,10 @@
     {
         private static bool Prefix(Panel_Inventory_Examine __instance)
         {
-            if (FuelUtils.IsFuelItem(__instance.m_GearItem.GetComponent<GearItem>()))
+            //GearItem gearItem = __instance.m_GearItem;
+            if (FuelUtils.IsFuelItem(__instance.m_GearItem))
             {
-                FuelUtils.Drain(__instance.m_GearItem.GetComponent<GearItem>());
+                FuelUtils.Drain(__instance.m_GearItem);
                 return false;
             }
             return true;

@@ -22,7 +22,7 @@
                 ButtonUtils.SetButtonLocalizationKey(__instance.m_Button_Unload, "GAMEPLAY_BFM_Drain");
                 ButtonUtils.SetButtonSprite(__instance.m_Button_Unload, "ico_lightSource_lantern");
                 // rename the bottom right "Unload" button to "Drain"
-                ButtonUtils.SetUnloadButtonLabel("GAMEPLAY_BFM_Drain");
+                ButtonUtils.SetUnloadButtonLabel(__instance, "GAMEPLAY_BFM_Drain");
 
                 Transform lanternTexture = __instance.m_RefuelPanel.transform.Find("FuelDisplay/Lantern_Texture");
                 ButtonUtils.SetTexture(lanternTexture, Utils.GetInventoryIconTexture(__instance.m_GearItem));
@@ -31,7 +31,7 @@
             {
                 ButtonUtils.SetButtonLocalizationKey(__instance.m_Button_Unload, "GAMEPLAY_Unload");
                 ButtonUtils.SetButtonSprite(__instance.m_Button_Unload, "ico_ammo_rifle");
-                ButtonUtils.SetUnloadButtonLabel("GAMEPLAY_Unload");
+                ButtonUtils.SetUnloadButtonLabel(__instance, "GAMEPLAY_Unload");
             }
         }
     }

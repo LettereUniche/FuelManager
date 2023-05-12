@@ -15,9 +15,19 @@
         internal static Panel_Inventory_Examine _Panel_Inventory_Examine = new();
         internal static void SetConditionToMax(GearItem gearItem)
         {
-            if (gearItem.CurrentHP != gearItem.GetMaxHPFromRepair())
+            if (gearItem.CurrentHP < gearItem.GetMaxHPFromRepair())
             {
-                gearItem.CurrentHP = gearItem.GetMaxHPFromRepair();
+                gearItem.SetHaltDecay(true);
+                float num = gearItem.GetMaxHPFromRepair();
+
+                gearItem.CurrentHP += num;
+                gearItem.CurrentHP = Mathf.Clamp(gearItem.CurrentHP, 0f, num);
+
+                gearItem.UpdateDamageShader();
+
+                gearItem.SetHaltDecay(false);
+
+                _Panel_Inventory_Examine.RefreshButton();
             }
             //gearItem.CurrentHP = Mathf.Clamp(_Panel_Inventory_Examine.m_GearItem.CurrentHP, 0f, _Panel_Inventory_Examine.m_GearItem.GetMaxHPFromRepair());
             //_Panel_Inventory_Examine.m_GearItem.UpdateDamageShader();
