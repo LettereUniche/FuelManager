@@ -7,7 +7,8 @@
     {
         private static bool Prefix(Panel_Inventory_Examine __instance)
         {
-            //GearItem gearItem = __instance.m_GearItem;
+            if (__instance == null || __instance.m_GearItem == null) return false;
+
             if (!FuelUtils.IsFuelItem(__instance.m_GearItem)) return true;
 
             if (ButtonUtils.IsSelected(__instance.m_Button_Unload))
@@ -19,7 +20,7 @@
                 FuelUtils.Refuel(__instance.m_GearItem);
             }
 
-            return false;
+            return true;
         }
     }
 }

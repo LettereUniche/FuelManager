@@ -1,9 +1,22 @@
 ﻿namespace FuelManager
 {
     using ModSettings;
+    using RadialMenuUtilities;
+    using UnityEngine;
+
     internal class Settings : JsonModSettings
     {
         internal static readonly Settings _settings = new();
+        internal static CustomRadialMenu? radialMenu;
+
+        [Section("Gameplay Settings")]
+        [Name("Use Radial Menu")]
+        [Description("Enables a new radial menu for you to easily access your fuel containers.")]
+        public bool enableRadial = false;
+
+        [Name("Key for Radial Menu")]
+        [Description("The key you press to show the new menu.")]
+        public KeyCode keyCode = KeyCode.G;
 
         [Section("Main")]
         [Name("Refuel Time")]
@@ -37,9 +50,19 @@
         [Slider(0f, 50f, 101)]
         public float challengeSpawnExpectation = 40f;
 
+        protected override void OnConfirm()
+        {
+            base.OnConfirm();
+            radialMenu!.SetValues(keyCode, enableRadial);
+        }
+
         internal static void OnLoad()
         {
             _settings.AddToModSettings("Fuel Manager");
+            radialMenu = new CustomRadialMenu(_settings.keyCode, CustomRadialMenuType.AllOfEach, new string[] { "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" }, _settings.enableRadial);
+#if DEBUG
+            FuelManager.Log("OnLoad");
+#endif
         }
     }
 }

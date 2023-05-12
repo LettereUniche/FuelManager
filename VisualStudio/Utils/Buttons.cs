@@ -32,6 +32,9 @@
             Panel_Inventory_Examine_MenuItem menuItem = button.GetComponent<Panel_Inventory_Examine_MenuItem>();
             if (menuItem is null) return false;
 
+#if DEBUG
+            FuelManager.Log($"IsSelected(menuItem {menuItem.m_Selected})");
+#endif
             return menuItem.m_Selected;
         }
 
@@ -90,10 +93,12 @@
 
         internal static void SetUnloadButtonLabel(Panel_Inventory_Examine panel, string localizationKey)
         {
+            if (panel == null) return;
             GameObject unloadPanel = GetChild(panel?.m_ExamineWidget?.gameObject, "UnloadRiflePanel");
             SetButtonLocalizationKey(gameObject: unloadPanel, localizationKey);
-
-            MelonLogger.Msg($"[FuelManager]: SetUnloadButtonLabel({unloadPanel}, {localizationKey})");
+#if DEBUG
+            FuelManager.Log($"SetUnloadButtonLabel({localizationKey})");
+#endif
         }
     }
 }

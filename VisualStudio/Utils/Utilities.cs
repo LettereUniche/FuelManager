@@ -29,8 +29,6 @@
 
                 _Panel_Inventory_Examine.RefreshButton();
             }
-            //gearItem.CurrentHP = Mathf.Clamp(_Panel_Inventory_Examine.m_GearItem.CurrentHP, 0f, _Panel_Inventory_Examine.m_GearItem.GetMaxHPFromRepair());
-            //_Panel_Inventory_Examine.m_GearItem.UpdateDamageShader();
         }
     }
 }

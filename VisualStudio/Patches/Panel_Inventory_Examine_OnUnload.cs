@@ -11,7 +11,6 @@
             if (FuelUtils.IsFuelItem(__instance.m_GearItem))
             {
                 FuelUtils.Drain(__instance.m_GearItem);
-                return false;
             }
             return true;
         }

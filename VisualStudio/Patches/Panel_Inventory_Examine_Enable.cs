@@ -9,7 +9,7 @@
     using ModSettings;
     using ModComponent;
     using UnityEngine;
-    [HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.Enable), new Type[] { typeof(bool), typeof(ComingFromScreenCategory) })]
+    [HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.Enable), new Type[] { typeof(bool) })]
     internal class Panel_Inventory_Examine_Enable
     {
         private static void Prefix(Panel_Inventory_Examine __instance, bool enable)

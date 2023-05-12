@@ -7,7 +7,7 @@
     {
         private static void Postfix(Panel_Inventory_Examine __instance)
         {
-            if (FuelUtils.IsFuelItem(__instance.m_GearItem) && ButtonUtils.IsSelected(__instance.m_Button_Unload))
+            if (__instance != null && __instance.m_GearItem != null && FuelUtils.IsFuelItem(__instance.m_GearItem) && ButtonUtils.IsSelected(__instance.m_Button_Unload))
             {
                 __instance.m_ButtonLegendContainer.UpdateButton("Continue", "GAMEPLAY_BFM_Drain", true, 1, true);
             }

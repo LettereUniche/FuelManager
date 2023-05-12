@@ -12,12 +12,24 @@
             //if (__instance == null || __instance.m_GearItem.GetComponent<GearItem>() == null || !FuelUtils.IsFuelItem(__instance.m_GearItem.GetComponent<GearItem>())) return;
             if (!FuelUtils.IsFuelItem(__instance.m_GearItem)) return; // original code
 
+<<<<<<< Updated upstream
             Vector3 position = ButtonUtils.GetBottomPosition(
                 __instance.m_Button_Harvest,
                 __instance.m_Button_Refuel,
                 __instance.m_Button_Repair);
             position.y += __instance.m_ButtonSpacing;
             __instance.m_Button_Unload.transform.localPosition = position;
+=======
+            if (__instance != null && __instance.m_GearItem != null && FuelUtils.IsFuelItem(__instance.m_GearItem))
+            {
+                Vector3 position = ButtonUtils.GetBottomPosition(
+                                                __instance.m_Button_Harvest,
+                                                __instance.m_Button_Refuel,
+                                                __instance.m_Button_Repair
+                                                );
+                position.y += __instance.m_ButtonSpacing;
+                __instance.m_Button_Unload.transform.localPosition = position;
+>>>>>>> Stashed changes
 
             __instance.m_Button_Unload.gameObject.SetActive(true);
 

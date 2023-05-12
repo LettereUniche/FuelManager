@@ -12,10 +12,11 @@
             //GearItem gearItem = __instance.m_GearItem.GetComponent<GearItem>();
             //bool IsFuelItem = FuelUtils.IsFuelItem(gearItem);
 
-            if (FuelUtils.IsFuelItem(__instance.m_GearItem) && __instance != null)
+            if (__instance != null && FuelUtils.IsFuelItem(__instance.m_GearItem))
             {
                 __instance.m_RefuelPanel.SetActive(false);
-                __instance.m_Button_Refuel.gameObject.SetActive(true);
+                __instance.m_Button_Refuel.gameObject.SetActive(FuelUtils.IsFuelItem(__instance.m_GearItem));
+                //__instance.m_Button_Refuel.gameObject.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(FuelUtils.IsFuelItem(__instance.m_GearItem));
 
                 float currentLiters         = FuelUtils.GetIndividualCurrentLiters(__instance.m_GearItem);
                 float capacityLiters        = FuelUtils.GetIndividualCapacityLiters(__instance.m_GearItem);
@@ -41,7 +42,7 @@
 
                 __instance.UpdateWeightAndConditionLabels();
             }
-            return false;
+            return true;
         }
     }
 }

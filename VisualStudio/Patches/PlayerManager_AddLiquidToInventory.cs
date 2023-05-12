@@ -8,7 +8,7 @@
     {
         private static void PostFix(PlayerManager __instance, float litersToAdd, GearLiquidTypeEnum liquidType, ref float __result)
         {
-            if (liquidType == GearLiquidTypeEnum.Kerosene && __result != litersToAdd)
+            if (__instance != null && liquidType == GearLiquidTypeEnum.Kerosene && __result != litersToAdd)
             {
                 MessageUtils.SendLostMessageDelayed(litersToAdd - __result);
 
