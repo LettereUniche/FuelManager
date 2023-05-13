@@ -22,10 +22,19 @@
             __instance.m_Refuel_X.gameObject.SetActive(!flag);
             __instance.m_Button_Refuel.gameObject.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(!flag);
 
-            if (!FuelUtils.IsKeroseneLamp(__instance.m_GearItem))
+            try
             {
-                __instance.m_Button_RefuelBackground.SetActive(true);
-                //__instance.m_Button_RefuelBackground.gameObject.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(!flag);
+                if (!FuelUtils.IsKeroseneLamp(__instance.m_GearItem))
+                {
+                    __instance.m_Button_RefuelBackground.SetActive(true);
+                    //__instance.m_Button_RefuelBackground.gameObject.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(!flag);
+                }
+            }
+            catch (NullReferenceException)
+            {
+#if DEBUG
+                FuelManager.LogError("Item is not proper, Panel_Inventory_Examine_RefreshRefuelPanel, line 27");
+#endif
             }
 
             InterfaceManager.GetPanel<Panel_Inventory_Examine>().m_MouseRefuelButton.SetActive(flag);
