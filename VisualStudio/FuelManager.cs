@@ -35,7 +35,7 @@
             Settings.OnLoad();
             Spawns.AddToModComponent();
 #if DEBUG
-            Log($"Version: {Assembly.GetExecutingAssembly().GetName().Version} Loaded!");
+            Log($"Version: {BuildInfo.Version} Loaded!");
 #endif
         }
 
