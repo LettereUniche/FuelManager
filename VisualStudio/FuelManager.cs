@@ -1,7 +1,5 @@
 ﻿namespace FuelManager
 {
-    using System.Reflection;
-    using MelonLoader;
     internal class FuelManager : MelonMod
     {
         public override void OnInitializeMelon()
