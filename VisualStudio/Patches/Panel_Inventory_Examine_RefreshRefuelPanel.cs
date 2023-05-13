@@ -24,7 +24,7 @@
 
             try
             {
-                if (!FuelUtils.IsKeroseneLamp(__instance.m_GearItem))
+                if (__instance.m_GearItem != null && !FuelUtils.IsKeroseneLamp(__instance.m_GearItem))
                 {
                     __instance.m_Button_RefuelBackground.SetActive(true);
                     //__instance.m_Button_RefuelBackground.gameObject.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(!flag);
