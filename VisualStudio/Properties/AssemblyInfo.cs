@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using BuildInfo = FuelManager.FuelManager.BuildInfo;
 
-[assembly: AssemblyTitle("FuelManager")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FuelManager")]
-[assembly: AssemblyCopyright("")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+[assembly: AssemblyTitle(BuildInfo.Name)]
+[assembly: AssemblyDescription(BuildInfo.Description)]
+[assembly: AssemblyCompany(BuildInfo.Company)]
+[assembly: AssemblyProduct(BuildInfo.Product)]
+[assembly: AssemblyCopyright(BuildInfo.Copyright)]
+[assembly: AssemblyTrademark(BuildInfo.Trademark)]
+[assembly: AssemblyCulture(BuildInfo.Culture)]
 
-[assembly: AssemblyVersion("1.0.2")]
-[assembly: AssemblyFileVersion("1.0.2")]
-[assembly: MelonInfo(typeof(FuelManager.FuelManager), "FuelManager", "1.0.2", "ds5678, The Illusion")]
+[assembly: AssemblyVersion(BuildInfo.Version)]
+[assembly: AssemblyFileVersion(BuildInfo.Version)]
+[assembly: MelonInfo(typeof(FuelManager.FuelManager), BuildInfo.Name, BuildInfo.Version, BuildInfo.Author, BuildInfo.DownloadLink)]
 [assembly: MelonGame("Hinterland", "TheLongDark")]
