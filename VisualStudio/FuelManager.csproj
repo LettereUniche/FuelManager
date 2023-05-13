@@ -22,9 +22,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Using Include="HarmonyLib" />
-	  <Using Include="Il2Cpp" />
-	  <Using Include="MelonLoader" />
+		<Using Include="System.Reflection" />
+		<Using Include="Il2Cpp" />
+		<Using Include="HarmonyLib" />
+		<Using Include="MelonLoader" />
+		<Using Include="UnityEngine" />
 	</ItemGroup>
 
 	<ItemGroup>
