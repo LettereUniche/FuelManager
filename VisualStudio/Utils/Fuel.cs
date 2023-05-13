@@ -21,8 +21,8 @@
 
         public const float MIN_LITERS                                       = 0.001f;
         private const string REFUEL_AUDIO                                   = "Play_SndActionRefuelLantern";
-        //internal static readonly float REFUEL_TIME                          = Settings._settings.refuelTime;
-        private const float REFUEL_TIME                                     = 3f;
+        internal static readonly float REFUEL_TIME                          = Settings._settings.refuelTime;
+        //private const float REFUEL_TIME                                     = 3f;
 
         #region Add
 
