@@ -1,7 +1,5 @@
 ﻿namespace FuelManager.Patches
 {
-    using Il2Cpp;
-    using HarmonyLib;
     [HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.OnUnload))]
     internal class Panel_Inventory_Examine_OnUnload
     {
