@@ -1,5 +1,5 @@
 # FuelManager
-STATUS: WIP (Not working yet)
+STATUS: Mostly Working
 
 An updated version of [Better-Fuel-Management](https://github.com/ds5678/Better-Fuel-Management) by [ds5678](https://github.com/ds5678).
 
