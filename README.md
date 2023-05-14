@@ -11,7 +11,7 @@ This is a mod for **The Long Dark** by Hinterland Studio, Inc.
 * If an action produces (e.g. cooking fish) or retrieves (e.g. harvesting a Kerosene Lamp) fuel and there is no appropriate container with sufficient capacity in the inventory, that fuel will be lost. You will need to manage your empty fuel containers!
 * The fuel in the Storm Lantern can be drained again.
 * Transfer fuel between fuel containers.
-* ~~A custom radial menu has been added to make placing fuel containers easier. You can change the key or disable the menu in the Mod Settings.~~ (Not possible until [RadialMenuUtilities](https://github.com/ds5678/RadialMenuUtilities) gets updated
+* A custom radial menu has been added to make placing fuel containers easier. You can change the key or disable the menu in the Mod Settings.
 * ~~Clicking on a fuel container in the inventory will set it to full condition. This does not affect gameplay significantly, but can make the refilling more impartial.~~ (Not working as of Post-DLC)
 
 ## Special Thanks
@@ -20,16 +20,22 @@ This is a mod for **The Long Dark** by Hinterland Studio, Inc.
 
 ## Installation
 
-* If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
-* Install the latest version of [ModComponent](https://github.com/dommrogers/ModComponent) and its dependencies.
-* Install the latest version of [RadialMenuUtilities](https://github.com/Arkhorse/RadialMenuUtilities).
-* Install the latest version of [KeyboardUtilities.dll](https://github.com/ds5678/KeyboardUtilities).
+### Requirements
+* [KeyboardUtilities](https://github.com/ds5678/KeyboardUtilities/releases/latest))
+* [LocalizationUtilities](https://github.com/dommrogers/LocalizationUtilities/releases/latest)
+* [CraftingRevisions](https://github.com/dommrogers/CraftingRevisions/release/latest)
+* [RadialMenuUtilities](https://github.com/Arkhorse/RadialMenuUtilities/releases/latest)
+* [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings/releases/latest)
+* [GearSpawner](https://github.com/dommrogers/GearSpawner/releases/latest)
+* [ModComponent](https://github.com/dommrogers/ModComponent)
+
+### Install Steps
 * Download `FuelManager.dll` and `FuelManager.modcomponent` from the [releases page](https://github.com/Arkhorse/FuelManager/releases)
 * Move `FuelManager.dll` and `FuelManager.modcomponent` into your mods folder.
 
 ## Localizations
 
-You can help make Better-Fuel-Management even better! Better-Fuel-Management has localized text that can be translated into other languages. You can find a list of compatible languages [here](https://github.com/ds5678/ModComponent/blob/master/docs/Localizations.md) and the localized text file [here](https://github.com/Arkhorse/FuelManager/blob/main/Unity/Assets/Localization.json). You can contribute your translations by doing the following:
+You can help make Better-Fuel-Management even better! Better-Fuel-Management has localized text that can be translated into other languages. You can find a list of compatible languages [here](https://github.com/dommrogers/ModComponent/blob/master/docs/Localizations.md) and the localized text file [here](https://github.com/Arkhorse/FuelManager/blob/main/Unity/Assets/Localization.json). You can contribute your translations by doing the following:
 * Make a Github account
 * [Fork](https://docs.github.com/en/github/collaborating-with-pull-requests/working-with-forks/about-forks) this project
 * Edit the localization file on your fork
