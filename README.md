@@ -21,10 +21,10 @@ This is a mod for **The Long Dark** by Hinterland Studio, Inc.
 ## Installation
 
 * If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
-* Install the latest version of [ModComponent](https://github.com/ds5678/ModComponent) and its dependencies.
-* ~~Install the latest version of [RadialMenuUtilities](https://github.com/ds5678/RadialMenuUtilities).~~ (NOT YET UPDATED)
+* Install the latest version of [ModComponent](https://github.com/dommrogers/ModComponent) and its dependencies.
+* Install the latest version of [RadialMenuUtilities](https://github.com/Arkhorse/RadialMenuUtilities). (NOT YET UPDATED)
 * Install the latest version of [KeyboardUtilities.dll](https://github.com/ds5678/KeyboardUtilities).
-* Download `FuelManager.dll` and `FuelManager.modcomponent` from the [releases page]([https://github.com/ds5678/Better-Fuel-Management/releases](https://github.com/Arkhorse/FuelManager/releases))
+* Download `FuelManager.dll` and `FuelManager.modcomponent` from the [releases page](https://github.com/Arkhorse/FuelManager/releases)
 * Move `FuelManager.dll` and `FuelManager.modcomponent` into your mods folder.
 
 ## Localizations
