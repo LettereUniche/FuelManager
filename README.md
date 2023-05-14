@@ -21,7 +21,7 @@ This is a mod for **The Long Dark** by Hinterland Studio, Inc.
 ## Installation
 
 ### Requirements
-* [KeyboardUtilities](https://github.com/ds5678/KeyboardUtilities/releases/latest))
+* [KeyboardUtilities](https://github.com/ds5678/KeyboardUtilities/releases/latest)
 * [LocalizationUtilities](https://github.com/dommrogers/LocalizationUtilities/releases/latest)
 * [CraftingRevisions](https://github.com/dommrogers/CraftingRevisions/release/latest)
 * [RadialMenuUtilities](https://github.com/Arkhorse/RadialMenuUtilities/releases/latest)
