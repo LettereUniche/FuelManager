@@ -1,4 +1,4 @@
-﻿namespace FuelManager.Patches
+﻿namespace FuelManager
 {
     [HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.RefreshRefuelPanel))]
     internal class Panel_Inventory_Examine_RefreshRefuelPanel
@@ -9,41 +9,32 @@
 
             __instance.m_RefuelPanel.SetActive(false);
             __instance.m_Button_Refuel.gameObject.SetActive(true);
-            //__instance.m_Button_RefuelBackground.SetActive(true);
+            //__instance.m_Button_RefuelBackground.SetActive(true); // DONT ENABLE. BREAKS EVERYTHING
 
-            float currentLiters = FuelUtils.GetIndividualCurrentLiters(__instance.m_GearItem.GetComponent<GearItem>());
-            float capacityLiters = FuelUtils.GetIndividualCapacityLiters(__instance.m_GearItem.GetComponent<GearItem>());
-            float totalCurrent = FuelUtils.GetTotalCurrentLiters(__instance.m_GearItem.GetComponent<GearItem>());
-            float totalCapacity = FuelUtils.GetTotalCapacityLiters(__instance.m_GearItem.GetComponent<GearItem>());
+            float currentLiters     = FuelUtils.GetIndividualCurrentLiters(__instance.m_GearItem.GetComponent<GearItem>());
+            float capacityLiters    = FuelUtils.GetIndividualCapacityLiters(__instance.m_GearItem.GetComponent<GearItem>());
+            float totalCurrent      = FuelUtils.GetTotalCurrentLiters(__instance.m_GearItem.GetComponent<GearItem>());
+            float totalCapacity     = FuelUtils.GetTotalCapacityLiters(__instance.m_GearItem.GetComponent<GearItem>());
 
-            bool fuelIsAvailable = totalCurrent > FuelUtils.MIN_LITERS;
-            bool flag = fuelIsAvailable && !Mathf.Approximately(currentLiters, capacityLiters);
+            bool fuelIsAvailable    = totalCurrent > FuelUtils.MIN_LITERS;
+            bool flag               = fuelIsAvailable && !Il2Cpp.Utils.Approximately(currentLiters, capacityLiters, FuelUtils.MIN_LITERS);
 
             __instance.m_Refuel_X.gameObject.SetActive(!flag);
             __instance.m_Button_Refuel.gameObject.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(!flag);
 
             try
             {
-                if (__instance.m_GearItem != null && !FuelUtils.IsKeroseneLamp(__instance.m_GearItem))
-                {
-                    __instance.m_Button_RefuelBackground.SetActive(true);
-                    //__instance.m_Button_RefuelBackground.gameObject.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(!flag);
-                }
+                if (__instance.m_GearItem != null && !FuelUtils.IsKeroseneLamp(__instance.m_GearItem)) __instance.m_Button_RefuelBackground.SetActive(true);
             }
             catch (NullReferenceException)
             {
 #if DEBUG
-                FuelManager.LogError("Item is not proper, Panel_Inventory_Examine_RefreshRefuelPanel, line 27");
+                FuelManager.LogError("Item is not proper, Panel_Inventory_Examine_RefreshRefuelPanel");
 #endif
             }
 
             InterfaceManager.GetPanel<Panel_Inventory_Examine>().m_MouseRefuelButton.SetActive(flag);
             __instance.m_RequiresFuelMessage.SetActive(false);
-
-#if DEBUG
-            FuelManager.Log($"__instance.m_LanternFuelAmountLabel.text: {__instance.m_LanternFuelAmountLabel.text}");
-            FuelManager.Log($"__instance.m_FuelSupplyAmountLabel.text: {__instance.m_FuelSupplyAmountLabel.text}");
-#endif
 
             __instance.m_LanternFuelAmountLabel.text = $"{FuelUtils.GetLiquidQuantityStringNoOunces(currentLiters)} / {FuelUtils.GetLiquidQuantityStringNoOunces(capacityLiters)}";
             __instance.m_FuelSupplyAmountLabel.text = $"{FuelUtils.GetLiquidQuantityStringNoOunces(totalCurrent)} / {FuelUtils.GetLiquidQuantityStringNoOunces(totalCapacity)}";
@@ -54,7 +45,7 @@
             FuelManager.Log($"__instance.m_LanternFuelAmountLabel.text: {__instance.m_LanternFuelAmountLabel.text}");
             FuelManager.Log($"__instance.m_FuelSupplyAmountLabel.text: {__instance.m_FuelSupplyAmountLabel.text}");
 #endif
-            return false;
+            return false; // MUST BE FALSE
         }
     }
 }

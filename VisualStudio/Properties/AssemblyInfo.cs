@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using BuildInfo = FuelManager.FuelManager.BuildInfo;
+﻿using BuildInfo = FuelManager.BuildInfo;
 
 [assembly: AssemblyTitle(BuildInfo.Name)]
 [assembly: AssemblyDescription(BuildInfo.Description)]

@@ -10,17 +10,14 @@
 
         private static float GetProbability(DifficultyLevel difficultyLevel, FirearmAvailability firearmAvailability, GearSpawnInfo gearSpawnInfo)
         {
-#if DEBUG
-
-#endif
+            if (gearSpawnInfo.PrefabName != "GEAR_GasCan" || gearSpawnInfo.PrefabName != "GEAR_GasCanFull") return 0f;
             return difficultyLevel switch
             {
-
-                DifficultyLevel.Pilgram => Settings._settings.pilgramSpawnExpectation / 70f * 100f,
-                DifficultyLevel.Voyager => Settings._settings.voyagerSpawnExpectation / 70f * 100f,
-                DifficultyLevel.Stalker => Settings._settings.stalkerSpawnExpectation / 70f * 100f,
-                DifficultyLevel.Interloper => Settings._settings.interloperSpawnExpectation / 70f * 100f,
-                DifficultyLevel.Challenge => Settings._settings.challengeSpawnExpectation / 70f * 100f,
+                DifficultyLevel.Pilgram => Settings._settings.pilgramSpawnExpectation,
+                DifficultyLevel.Voyager => Settings._settings.voyagerSpawnExpectation,
+                DifficultyLevel.Stalker => Settings._settings.stalkerSpawnExpectation,
+                DifficultyLevel.Interloper => Settings._settings.interloperSpawnExpectation,
+                DifficultyLevel.Challenge => Settings._settings.challengeSpawnExpectation,
                 _ => 0f,
             };
         }

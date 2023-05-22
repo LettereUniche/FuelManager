@@ -1,4 +1,4 @@
-﻿namespace FuelManager.Patches
+﻿namespace FuelManager
 {
     [HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.UpdateButtonLegend))]
     internal class Panel_Inventory_Examine_UpdateButtonLegend

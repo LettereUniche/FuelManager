@@ -1,4 +1,4 @@
-﻿namespace FuelManager.Utils
+﻿namespace FuelManager
 {
     using System;
     using System.Reflection;

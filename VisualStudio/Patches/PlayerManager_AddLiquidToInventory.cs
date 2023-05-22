@@ -1,4 +1,4 @@
-﻿namespace FuelManager.Patches
+﻿namespace FuelManager
 {
     using System;
     using Il2Cpp;

@@ -1,4 +1,4 @@
-﻿global using FuelUtils = FuelManager.Utils.Fuel;
-global using ItemUtils = FuelManager.Utils.Utilities;
-global using MessageUtils = FuelManager.Utils.Message;
-global using ButtonUtils = FuelManager.Utils.Buttons;
+﻿global using FuelUtils = FuelManager.Fuel;
+global using ItemUtils = FuelManager.Utilities;
+global using MessageUtils = FuelManager.Message;
+global using ButtonUtils = FuelManager.Buttons;
