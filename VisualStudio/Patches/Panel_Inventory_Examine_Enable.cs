@@ -1,4 +1,4 @@
-﻿namespace FuelManager.Patches
+﻿namespace FuelManager
 {
     [HarmonyPatch(typeof(Panel_Inventory_Examine), nameof(Panel_Inventory_Examine.Enable), new Type[] { typeof(bool), typeof(ComingFromScreenCategory) })]
     internal class Panel_Inventory_Examine_Enable
