@@ -6,7 +6,7 @@
         "WeightKG": 0.0,
         "DaysToDecay" : 0.0,
         "MaxHP" : 100.0,
-        "InitialCondition" : "High",
+        "InitialCondition" : "Perfect",
         "InventoryCategory" : "Tool",
         "PickUpAudio" : "Play_SndInvJerryCan",
         "PutBackAudio" : "Play_SndInvJerryCan",
@@ -23,7 +23,7 @@
         "LiquidType" : "Kerosene",
         "LiquidCapacityLiters" : 6.0,
         "RandomizedQuantity" : false,
-        "LiquidLiters" : 0.0
+        "LiquidLiters" : 6.0
     },
     "ModHarvestableBehaviour": {
         "Audio" : "Play_HarvestingMetalSaw",
