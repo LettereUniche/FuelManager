@@ -39,7 +39,7 @@ MonoBehaviour:
     m_Id: 3e1e31cdf43b217438a22c1c3df0acad
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
-  m_overridePlayerVersion: fuelmanager
+  m_overridePlayerVersion: FuelManager
   m_GroupAssets:
   - {fileID: 11400000, guid: 11746a0062ebab240a76364b5427b1a2, type: 2}
   - {fileID: 11400000, guid: 02e398fa3748dba4d94bf7f7140583a8, type: 2}
