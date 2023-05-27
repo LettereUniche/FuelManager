@@ -12,7 +12,7 @@ This is a mod for **The Long Dark** by Hinterland Studio, Inc.
 * The fuel in the Storm Lantern can be drained again.
 * Transfer fuel between fuel containers.
 * A custom radial menu has been added to make placing fuel containers easier. You can change the key or disable the menu in the Mod Settings.
-* ~~Clicking on a fuel container in the inventory will set it to full condition. This does not affect gameplay significantly, but can make the refilling more impartial.~~ (Not working as of Post-DLC)
+* (NEW) Ability to harvest and repair the Jerry Can and the Lamp Fuel items
 
 ## Special Thanks
 
