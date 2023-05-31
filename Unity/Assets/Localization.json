@@ -22,7 +22,7 @@
     },
     "GAMEPLAY_BFM_NoFuelCapacityAvailable" : {
                             "English" : "No containers with remaining capacity available",
-                            "German" : "Keine Behälter mit verbleibender Kapazität vorhanden",
+                            "German" : "Keine Behälter mit ausreichend Kapazität vorhanden",
                             "Russian" : "Отсутствует емкость для топлива",
                             "French (France)" : "Tous vos récipients sont déjà pleins",
                             "Japanese" : "空きのある容器がありません",
