@@ -1,6 +1,7 @@
 {
     "GAMEPLAY_GasCan" : {
                             "English" : "Gas Can",
+                            "German" : "Benzinkanister",
                             "Russian" : "Канистра",
                             "French (France)" : "Bidon d'essence",
                             "Japanese" : "ガソリン缶",
@@ -10,6 +11,7 @@
     },
     "GAMEPLAY_GasCanDescription" : {
                             "English" : "An old gas can. Holds kerosene just as well.",
+                            "German" : "Ein alter Benzinkanister. Genausogut zum Aufbewahren von Lampenöl geeignet.",
                             "Russian" : "Старая большая канистра. Вмещает много топлива.",
                             "French (France)" : "Un vieux bidon d'essence. Peut tout aussi bien servir à stocker du kérosène.",
                             "Japanese" : "古いガソリン携行缶。石油を入れるのに適している。",
@@ -20,7 +22,7 @@
     },
     "GAMEPLAY_BFM_NoFuelCapacityAvailable" : {
                             "English" : "No containers with remaining capacity available",
-                            "German" : "Keine Behälter mit verbleibender Kapazität vorhanden",
+                            "German" : "Keine Behälter mit ausreichender Kapazität vorhanden",
                             "Russian" : "Отсутствует емкость для топлива",
                             "French (France)" : "Tous vos récipients sont déjà pleins",
                             "Japanese" : "空きのある容器がありません",
