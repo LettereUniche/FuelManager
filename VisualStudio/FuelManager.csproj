@@ -33,7 +33,7 @@
 
 	<ItemGroup>
 	  <Reference Include="RadialMenuUtilities">
-	    <HintPath>$(TheLongDarkPath)\Mods\RadialMenuUtilities.dll</HintPath>
+	    <HintPath>P:\Modding\The Long Dark\!! Libraries\RadialMenuUtilities.dll</HintPath>
 		<Private>false</Private>
 	  </Reference>
 	</ItemGroup>
