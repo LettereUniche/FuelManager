@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	
 	<PropertyGroup>
 		<TheLongDarkPath>O:\Steam\steamapps\common\TheLongDark</TheLongDarkPath>
@@ -13,8 +13,8 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>TheLongDark</PackageTags>
 		<NeutralLanguage>en</NeutralLanguage>
-		<AssemblyVersion>1.0.4</AssemblyVersion>
-		<FileVersion>1.0.4</FileVersion>
+		<AssemblyVersion>1.2.0</AssemblyVersion>
+		<FileVersion>1.2.0</FileVersion>
 	</PropertyGroup>
 
   <PropertyGroup>
