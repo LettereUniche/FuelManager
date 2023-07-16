@@ -60,5 +60,34 @@ namespace FuelManager
 #endif
             return null;
         }
+
+        internal static T GetItem<T>(string name, string? reference = null) where T : Component
+        {
+            GameObject? gameObject = AssetBundleUtils.LoadAsset<GameObject>(name);
+            if (gameObject == null)
+            {
+                throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
+            }
+
+            T targetType = GetComponentSafe<T>(gameObject);
+            if (targetType == null)
+            {
+                throw new ArgumentException("'" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + " is not a '" + typeof(T).Name + "'.");
+            }
+
+            return targetType;
+        }
+
+        internal static T[] GetItems<T>(string[] names, string? reference = null) where T : Component
+        {
+            T[] result = new T[names.Length];
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                result[i] = GetItem<T>(names[i], reference);
+            }
+
+            return result;
+        }
     }
 }
