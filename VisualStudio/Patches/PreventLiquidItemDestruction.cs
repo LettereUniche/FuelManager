@@ -8,7 +8,7 @@
     {
         internal static int deductLiquidFromInventoryCallDepth = 0;
 
-        [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.DeductLiquidFromInventory))]
+        [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.DeductLiquidFromInventory), new Type[] { typeof(float), typeof(GearLiquidTypeEnum) })]
         internal static class PlayerManager_DeductLiquidFromInventory
         {
             private static void Prefix()
