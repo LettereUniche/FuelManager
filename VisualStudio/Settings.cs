@@ -1,12 +1,8 @@
 ﻿namespace FuelManager
 {
-    using ModSettings;
-    using RadialMenuUtilities;
-    using UnityEngine;
-
     internal class Settings : JsonModSettings
     {
-        internal static readonly Settings _settings = new();
+        internal static Settings Instance { get; } = new();
         internal static CustomRadialMenu? radialMenu;
 
         [Section("Gameplay Settings")]
@@ -52,16 +48,32 @@
 
         protected override void OnConfirm()
         {
-            base.OnConfirm();
             radialMenu!.SetValues(keyCode, enableRadial);
+            Refresh();
+            base.OnConfirm();
+        }
+
+        private void Refresh()
+        {
+            SetFieldVisible(nameof(enableRadial), true);
+            SetFieldVisible(nameof(keyCode), true);
+            SetFieldVisible(nameof(refuelTime), true);
+
+            SetFieldVisible(nameof(pilgramSpawnExpectation), true);
+            SetFieldVisible(nameof(voyagerSpawnExpectation), true);
+            SetFieldVisible(nameof(stalkerSpawnExpectation), true);
+            SetFieldVisible(nameof(interloperSpawnExpectation), true);
+            SetFieldVisible(nameof(challengeSpawnExpectation), true);
         }
 
         internal static void OnLoad()
         {
-            _settings.AddToModSettings("Fuel Manager");
-            radialMenu = new CustomRadialMenu(_settings.keyCode, CustomRadialMenuType.AllOfEach, new string[] { "GEAR_GasCan", "GEAR_GasCanFull", "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" }, _settings.enableRadial);
+            Instance.AddToModSettings(BuildInfo.GUIName);
+            radialMenu = new CustomRadialMenu(Instance.keyCode, CustomRadialMenuType.AllOfEach, new string[] { "GEAR_GasCan", "GEAR_GasCanFull", "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" }, Instance.enableRadial);
+            Instance.Refresh();
+
 #if DEBUG
-            FuelManager.Log("OnLoad");
+            Logger.Log("OnLoad");
 #endif
         }
     }
