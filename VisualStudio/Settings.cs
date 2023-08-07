@@ -69,7 +69,7 @@
         internal static void OnLoad()
         {
             Instance.AddToModSettings(BuildInfo.GUIName);
-            radialMenu = new CustomRadialMenu(Instance.keyCode, CustomRadialMenuType.AllOfEach, new string[] { "GEAR_GasCan", "GEAR_GasCanFull", "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" }, Instance.enableRadial);
+            radialMenu = new CustomRadialMenu(Instance.keyCode, CustomRadialMenuType.AllOfEach, new string[] { "GEAR_GasCan", "GEAR_GasCanFull", "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" }, BuildInfo.Name, Instance.enableRadial);
             Instance.Refresh();
 
 #if DEBUG
