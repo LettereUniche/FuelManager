@@ -2,25 +2,61 @@
 {
     public class FuelItemAPI
     {
+
         /// <summary>
         /// This should only be used to add repair to already existing items. Otherwise use the Modcomponent function
         /// </summary>
-        /// <param name="gi">The GearItem you want to add repair to</param>
-        public static void AddRepair(GearItem gi, bool NeverFail = false, float ConditionIncrease = 50f)
+        /// <param name="gi"></param>
+        public static void AddRepair(GearItem gi)
+        {
+            AddRepair(gi,
+                      "Play_RepairingMetal",
+                      15,
+                      50,
+                      Constants.REPAIR_HARVEST_GEAR,
+                      new int[] { 1 },
+                      Constants.REPAIR_TOOLS,
+                      true,
+                      true);
+        }
+
+        /// <summary>
+        /// This should only be used to add repair to already existing items. Otherwise use the Modcomponent function
+        /// </summary>
+        /// <param name="gi"></param>
+        /// <param name="audio"></param>
+        /// <param name="duration"></param>
+        /// <param name="ConditionIncrease"></param>
+        /// <param name="requiredGear"></param>
+        /// <param name="repairUnits"></param>
+        /// <param name="extra"></param>
+        /// <param name="requiresTools"></param>
+        /// <param name="NeverFail"></param>
+        public static void AddRepair(GearItem gi,
+                                     string audio,
+                                     int duration,
+                                     float ConditionIncrease,
+                                     string[] requiredGear,
+                                     int[] repairUnits,
+                                     string[] extra,
+                                     bool requiresTools,
+                                     bool NeverFail)
         {
             if (gi == null) return;
-            Repairable repairable = ItemUtils.GetOrCreateComponent<Repairable>(gi.gameObject);
+            if (gi.GetComponent<Repairable>() && gi.GetComponent<Repairable>().m_DurationMinutes == duration) return;
 
-            repairable.m_RepairAudio = "Play_RepairingMetal";
-            repairable.m_DurationMinutes = 15;
-            repairable.m_ConditionIncrease = ConditionIncrease;
+            Repairable repairable               = ItemUtils.GetOrCreateComponent<Repairable>(gi.gameObject);
 
-            repairable.m_RequiredGear = ItemUtils.GetItems<GearItem>(Constants.REPAIR_HARVEST_GEAR);
-            repairable.m_RequiredGearUnits = new int[] { 1 };
+            repairable.m_RepairAudio            = audio;
+            repairable.m_DurationMinutes        = duration;
+            repairable.m_ConditionIncrease      = ConditionIncrease;
 
-            repairable.m_RepairToolChoices = ItemUtils.GetItems<ToolsItem>(Constants.REPAIR_TOOLS);
-            repairable.m_RequiresToolToRepair = true;
-            repairable.m_NeverFail = NeverFail;
+            repairable.m_RequiredGear           = ItemUtils.GetItems<GearItem>(requiredGear);
+            repairable.m_RequiredGearUnits      = repairUnits;
+
+            repairable.m_RepairToolChoices      = ItemUtils.GetItems<ToolsItem>(extra);
+            repairable.m_RequiresToolToRepair   = requiresTools;
+            repairable.m_NeverFail              = NeverFail;
         }
 
         /// <summary>
@@ -30,19 +66,52 @@
         public static void AddHarvest(GearItem gi)
         {
             if (gi == null) return;
+            if (gi.GetComponent<Harvest>() && gi.GetComponent<Repairable>().m_DurationMinutes == 15) return;
 
-            Harvest harvest = ItemUtils.GetOrCreateComponent<Harvest>(gi.gameObject);
-
-            harvest.m_Audio = "Play_HarvestingMetalSaw";
-            harvest.m_DurationMinutes = 15;
-
-            harvest.m_YieldGear = ItemUtils.GetItems<GearItem>(Constants.REPAIR_HARVEST_GEAR);
-            harvest.m_YieldGearUnits = new int[] { 2 };
-
-            harvest.m_AppliedSkillType = SkillType.None;
-            harvest.m_RequiredTools = ItemUtils.GetItems<ToolsItem>(Constants.HARVEST_TOOLS);
-            harvest.m_GunpowderYield = 0f;
+            AddHarvest(gi,
+                       "Play_HarvestingMetalSaw",
+                       15,
+                       Constants.REPAIR_HARVEST_GEAR,
+                       new int[] { 2 },
+                       SkillType.None,
+                       Constants.HARVEST_TOOLS,
+                       0f);
         }
+
+        public static void AddHarvest(GearItem gi, SkillType skillType)
+        {
+            if (gi == null) return;
+            if (gi.GetComponent<Harvest>() && gi.GetComponent<Repairable>().m_DurationMinutes == 15) return;
+
+            AddHarvest(gi,
+                       "Play_HarvestingMetalSaw",
+                       15,
+                       Constants.REPAIR_HARVEST_GEAR,
+                       new int[] { 2 },
+                       skillType,
+                       Constants.HARVEST_TOOLS,
+                       0f);
+        }
+
+
+        public static void AddHarvest(GearItem gi, string audio, int duration, string[] yieldGear, int[] yieldUnits, SkillType skillType, string[] requiredTools, float gunpowder)
+        {
+            if (gi == null) return;
+            if (gi.GetComponent<Harvest>() && gi.GetComponent<Repairable>().m_DurationMinutes == duration) return;
+
+            Harvest harvest                 = ItemUtils.GetOrCreateComponent<Harvest>(gi.gameObject);
+
+            harvest.m_Audio                 = audio;
+            harvest.m_DurationMinutes       = duration;
+
+            harvest.m_YieldGear             = ItemUtils.GetItems<GearItem>(yieldGear);
+            harvest.m_YieldGearUnits        = yieldUnits;
+
+            harvest.m_AppliedSkillType      = skillType;
+            harvest.m_RequiredTools         = ItemUtils.GetItems<ToolsItem>(requiredTools);
+            harvest.m_GunpowderYield        = gunpowder;
+        }
+
         /// <summary>
         /// Adds the FuelSourceItem component to the given GearItem
         /// </summary>
@@ -69,21 +138,24 @@
                                          bool isTinder,
                                          bool isWet)
         {
-            FuelSourceItem fuelSourceItem = ItemUtils.GetOrCreateComponent<FuelSourceItem>(gi.gameObject);
+            if (gi == null) return;
+            if (gi.GetComponent<FuelSourceItem>() && gi.GetComponent<FuelSourceItem>().m_BurnDurationHours == burnHours) return;
 
-            fuelSourceItem.m_BurnDurationHours = burnHours;
+            FuelSourceItem fuelSourceItem                   = ItemUtils.GetOrCreateComponent<FuelSourceItem>(gi.gameObject);
 
-            fuelSourceItem.m_FireAgeMinutesBeforeAdding = fireAge;
-            fuelSourceItem.m_FireStartDurationModifier = fireStartDuration;
-            fuelSourceItem.m_FireStartSkillModifier = fireStartSkill;
+            fuelSourceItem.m_BurnDurationHours              = burnHours;
 
-            fuelSourceItem.m_HeatIncrease = heatIncrease;
-            fuelSourceItem.m_HeatInnerRadius = heatInner;
-            fuelSourceItem.m_HeatOuterRadius = heatOuter;
+            fuelSourceItem.m_FireAgeMinutesBeforeAdding     = fireAge;
+            fuelSourceItem.m_FireStartDurationModifier      = fireStartDuration;
+            fuelSourceItem.m_FireStartSkillModifier         = fireStartSkill;
 
-            fuelSourceItem.m_IsBurntInFireTracked = isBurnt;
-            fuelSourceItem.m_IsTinder = isTinder;
-            fuelSourceItem.m_IsWet = isWet;
+            fuelSourceItem.m_HeatIncrease                   = heatIncrease;
+            fuelSourceItem.m_HeatInnerRadius                = heatInner;
+            fuelSourceItem.m_HeatOuterRadius                = heatOuter;
+
+            fuelSourceItem.m_IsBurntInFireTracked           = isBurnt;
+            fuelSourceItem.m_IsTinder                       = isTinder;
+            fuelSourceItem.m_IsWet                          = isWet;
         }
     }
 }

@@ -7,7 +7,7 @@
         {
             if (ItemUtils.NormalizeName(__instance.name) == "GEAR_LampFuelFull")
             {
-                FuelItemAPI.AddRepair(__instance, true);
+                FuelItemAPI.AddRepair(__instance);
                 FuelItemAPI.AddHarvest(__instance);
             }
         }

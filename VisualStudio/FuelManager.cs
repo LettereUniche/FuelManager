@@ -4,7 +4,7 @@
     {
         public override void OnInitializeMelon()
         {
-            Settings.OnLoad();
+            Settings.OnLoad(false);
             Spawns.AddToModComponent();
         }
     }
