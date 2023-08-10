@@ -1,8 +1,5 @@
 ﻿namespace FuelManager
 {
-    using System;
-    using Il2Cpp;
-    using HarmonyLib;
     [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.AddLiquidToInventory), new Type[] { typeof(float), typeof(GearLiquidTypeEnum) })]
     internal class PlayerManager_AddLiquidToInventory
     {

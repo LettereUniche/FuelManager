@@ -13,11 +13,11 @@
             if (gearSpawnInfo.PrefabName != "GEAR_GasCan" || gearSpawnInfo.PrefabName != "GEAR_GasCanFull") return 0f;
             return difficultyLevel switch
             {
-                DifficultyLevel.Pilgram => Settings._settings.pilgramSpawnExpectation,
-                DifficultyLevel.Voyager => Settings._settings.voyagerSpawnExpectation,
-                DifficultyLevel.Stalker => Settings._settings.stalkerSpawnExpectation,
-                DifficultyLevel.Interloper => Settings._settings.interloperSpawnExpectation,
-                DifficultyLevel.Challenge => Settings._settings.challengeSpawnExpectation,
+                DifficultyLevel.Pilgram => Settings.Instance.pilgramSpawnExpectation,
+                DifficultyLevel.Voyager => Settings.Instance.voyagerSpawnExpectation,
+                DifficultyLevel.Stalker => Settings.Instance.stalkerSpawnExpectation,
+                DifficultyLevel.Interloper => Settings.Instance.interloperSpawnExpectation,
+                DifficultyLevel.Challenge => Settings.Instance.challengeSpawnExpectation,
                 _ => 0f,
             };
         }

@@ -1,13 +1,13 @@
 ﻿namespace FuelManager
 {
-    using ModSettings;
-    using RadialMenuUtilities;
-    using UnityEngine;
-
     internal class Settings : JsonModSettings
     {
-        internal static readonly Settings _settings = new();
-        internal static CustomRadialMenu? radialMenu;
+        internal static Settings Instance { get; } = new();
+        internal static CustomRadialMenu? radialMenu { get; set; }
+        internal static List<string> GearNames { get; } = new List<string>
+        { "GEAR_GasCan", "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" };
+
+        internal static List<GearItem> GearItems { get; set; } = new();
 
         [Section("Gameplay Settings")]
         [Name("Use Radial Menu")]
@@ -52,17 +52,43 @@
 
         protected override void OnConfirm()
         {
+            Refresh();
             base.OnConfirm();
+        }
+
+        private void ConstructRadialArm(bool enable)
+        {
+            SetFieldVisible(nameof(enableRadial), enable);
+            SetFieldVisible(nameof(keyCode), enable);
+
+            if (!enable) return;
+
+            radialMenu = new CustomRadialMenu(
+                                GearNames,
+                                Instance.keyCode,
+                                CustomRadialMenuType.AllOfEach,
+                                Instance.enableRadial,
+                                BuildInfo.GUIName
+                                );
+
             radialMenu!.SetValues(keyCode, enableRadial);
         }
 
-        internal static void OnLoad()
+        private void Refresh()
         {
-            _settings.AddToModSettings("Fuel Manager");
-            radialMenu = new CustomRadialMenu(_settings.keyCode, CustomRadialMenuType.AllOfEach, new string[] { "GEAR_GasCan", "GEAR_GasCanFull", "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" }, _settings.enableRadial);
-#if DEBUG
-            FuelManager.Log("OnLoad");
-#endif
+            SetFieldVisible(nameof(refuelTime), true);
+            SetFieldVisible(nameof(pilgramSpawnExpectation), true);
+            SetFieldVisible(nameof(voyagerSpawnExpectation), true);
+            SetFieldVisible(nameof(stalkerSpawnExpectation), true);
+            SetFieldVisible(nameof(interloperSpawnExpectation), true);
+            SetFieldVisible(nameof(challengeSpawnExpectation), true);
+        }
+
+        internal static void OnLoad(bool EnableRadial)
+        {
+            Instance.AddToModSettings(BuildInfo.GUIName);
+            Instance.Refresh();
+            Instance.ConstructRadialArm(EnableRadial);
         }
     }
 }
