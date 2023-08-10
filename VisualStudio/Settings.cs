@@ -3,7 +3,11 @@
     internal class Settings : JsonModSettings
     {
         internal static Settings Instance { get; } = new();
-        internal static CustomRadialMenu? radialMenu;
+        internal static CustomRadialMenu? radialMenu { get; set; }
+        internal static List<string> GearNames { get; } = new List<string>
+        { "GEAR_GasCan", "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" };
+
+        internal static List<GearItem> GearItems { get; set; } = new();
 
         [Section("Gameplay Settings")]
         [Name("Use Radial Menu")]
@@ -48,17 +52,31 @@
 
         protected override void OnConfirm()
         {
-            radialMenu!.SetValues(keyCode, enableRadial);
             Refresh();
             base.OnConfirm();
         }
 
+        private void ConstructRadialArm(bool enable)
+        {
+            SetFieldVisible(nameof(enableRadial), enable);
+            SetFieldVisible(nameof(keyCode), enable);
+
+            if (!enable) return;
+
+            radialMenu = new CustomRadialMenu(
+                                GearNames,
+                                Instance.keyCode,
+                                CustomRadialMenuType.AllOfEach,
+                                Instance.enableRadial,
+                                BuildInfo.GUIName
+                                );
+
+            radialMenu!.SetValues(keyCode, enableRadial);
+        }
+
         private void Refresh()
         {
-            SetFieldVisible(nameof(enableRadial), true);
-            SetFieldVisible(nameof(keyCode), true);
             SetFieldVisible(nameof(refuelTime), true);
-
             SetFieldVisible(nameof(pilgramSpawnExpectation), true);
             SetFieldVisible(nameof(voyagerSpawnExpectation), true);
             SetFieldVisible(nameof(stalkerSpawnExpectation), true);
@@ -66,15 +84,11 @@
             SetFieldVisible(nameof(challengeSpawnExpectation), true);
         }
 
-        internal static void OnLoad()
+        internal static void OnLoad(bool EnableRadial)
         {
             Instance.AddToModSettings(BuildInfo.GUIName);
-            radialMenu = new CustomRadialMenu(Instance.keyCode, CustomRadialMenuType.AllOfEach, new string[] { "GEAR_GasCan", "GEAR_GasCanFull", "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" }, BuildInfo.Name, Instance.enableRadial);
             Instance.Refresh();
-
-#if DEBUG
-            Logger.Log("OnLoad");
-#endif
+            Instance.ConstructRadialArm(EnableRadial);
         }
     }
 }

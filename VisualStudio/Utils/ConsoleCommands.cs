@@ -11,7 +11,10 @@ namespace FuelManager
 
         public static void PrintDebugInfo()
         {
+            if (Settings.GearItems.Count == Settings.GearNames.Count)
+            {
 
+            }
         }
 
         /// <summary>
