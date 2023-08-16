@@ -83,6 +83,7 @@ namespace FuelManager
         public void RegisterCommands()
         {
             uConsole.RegisterCommand("FM_UpdateTest", new Action(UpdateTest));
+            uConsole.RegisterCommand("FM_PrintChangeLogs", new Action(PatchNotes.PrintChangeLog));
         }
     }
 }
