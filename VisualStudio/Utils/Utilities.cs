@@ -5,11 +5,12 @@ namespace FuelManager
     internal static class Utilities
     {
         public static GearItem GetGearItemPrefab(string name) => GearItem.LoadGearItemPrefab(name).GetComponent<GearItem>();
+        public static GearItem GetGearItemPrefab(GearItem item) => GearItem.LoadGearItemPrefab(item.name).GetComponent<GearItem>();
         public static ToolsItem GetToolItemPrefab(string name) => GearItem.LoadGearItemPrefab(name).GetComponent<ToolsItem>();
         public static string? NormalizeName(string name)
         {
             if (name == null) return null;
-            else return name.Replace("(Clone)", "").Trim();
+            else return name.Replace("(Clone)", "").Trim().ToLowerInvariant();
         }
 
         [return: NotNullIfNotNull("component")]
