@@ -1,14 +1,5 @@
 ﻿namespace FuelManager
 {
-    using System;
-    using System.Reflection;
-    using Il2Cpp;
-    using Il2CppTLD.Gear;
-    using MelonLoader;
-    using HarmonyLib;
-    using ModSettings;
-    using ModComponent;
-    using UnityEngine;
     internal class Message
     {
         internal static Panel_OptionsMenu _Panel_OptionsMenu = new();
