@@ -1,7 +1,13 @@
 ﻿namespace FuelManager
 {
+    public enum LoggingLevel
+    {
+        None, Info, Debug, Warn, Error, Fatal, Trace
+    }
+
     internal class Settings : JsonModSettings
     {
+        internal static bool RadialOverride { get; set; } = false;
         internal static Settings Instance { get; } = new();
         internal static CustomRadialMenu? radialMenu { get; set; }
         internal static List<string> GearNames { get; } = new List<string>
@@ -50,6 +56,12 @@
         [Slider(0f, 100f, 101)]
         public float challengeSpawnExpectation = 50f;
 
+        [Section("Logging")]
+
+        [Name("Level")]
+        [Description("Depending on the level of logging, you will get different logging")]
+        public LoggingLevel loggingLevel = LoggingLevel.Debug;
+
         protected override void OnConfirm()
         {
             Refresh();
@@ -58,20 +70,35 @@
 
         private void ConstructRadialArm(bool enable)
         {
-            SetFieldVisible(nameof(enableRadial), enable);
-            SetFieldVisible(nameof(keyCode), enable);
-
+            RadialOverride = enable;
             if (!enable) return;
 
-            radialMenu = new CustomRadialMenu(
-                                GearNames,
-                                Instance.keyCode,
-                                CustomRadialMenuType.AllOfEach,
-                                Instance.enableRadial,
-                                BuildInfo.GUIName
-                                );
+            try
+            {
+                radialMenu = new CustomRadialMenu(
+                    GearNames,
+                    Instance.keyCode,
+                    CustomRadialMenuType.AllOfEach,
+                    Instance.enableRadial,
+                    BuildInfo.GUIName
+                    );
 
-            radialMenu!.SetValues(keyCode, enableRadial);
+                radialMenu!.SetValues(keyCode, enableRadial);
+            }
+            catch (MissingMethodException)
+            {
+                if (RadialOverride) return;
+                else
+                {
+                    Logger.LogError("MissingMethodException: Either your missing RadialMenuUtilies or your version of this mod or RMU is outdated", Color.red);
+                    throw;
+                }
+            }
+            catch
+            {
+                Logger.LogError($"Threw exception while attempting to create new radial menu");
+                throw;
+            }
         }
 
         private void Refresh()
@@ -82,13 +109,16 @@
             SetFieldVisible(nameof(stalkerSpawnExpectation), true);
             SetFieldVisible(nameof(interloperSpawnExpectation), true);
             SetFieldVisible(nameof(challengeSpawnExpectation), true);
+
+            SetFieldVisible(nameof(enableRadial), !RadialOverride);
+            SetFieldVisible(nameof(keyCode), !RadialOverride);
         }
 
         internal static void OnLoad(bool EnableRadial)
         {
             Instance.AddToModSettings(BuildInfo.GUIName);
-            Instance.Refresh();
             Instance.ConstructRadialArm(EnableRadial);
+            Instance.Refresh();
         }
     }
 }
