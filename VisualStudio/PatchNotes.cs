@@ -79,6 +79,14 @@
                     "Disable radial as HL changed how this works. Requires work on RMU"
                 })
             );
+            ChangeNotes.Add(
+            new Patch(
+                new Version(1,2,3),
+                new string[]
+                {
+                    "Changed GearItem.Deserialize to GearItem.Awake as the former was no longer working"
+                })
+            );
         }
 
         public static void PrintChangeLog()
