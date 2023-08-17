@@ -87,13 +87,25 @@
                     "Changed GearItem.Deserialize to GearItem.Awake as the former was no longer working"
                 })
             );
+            ChangeNotes.Add(
+            new Patch(
+                new Version(1,2,4),
+                new string[]
+                {
+                    "Add Try|Catch too all FuelItemAPI methods",
+                    "Removed GetComponent<GearItem>() from a bunch of calls and methods",
+                    "Targeted GameObject for FuelItemAPI method's",
+                    "Switched to using GearItem.DisplayName for checks",
+                    "RMU dedicated code changes"
+                })
+            );
         }
 
         public static void PrintChangeLog()
         {
             for (int i = 0; i < ChangeNotes.Count; i++)
             {
-                Logger.Log($"Version: {ChangeNotes[i].Instance.GetVersion}");
+                Logger.Log($"Version: {ChangeNotes[i].Instance.GetVersion()}");
                 Logger.Log("Changes:");
 
                 for (int v = 0; v < ChangeNotes[i].Instance.GetStrings().Length; v++)
