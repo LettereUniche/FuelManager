@@ -2,21 +2,26 @@
 
 namespace FuelManager
 {
-    internal static class Utilities
+    public static class Utilities
     {
-        public static GearItem GetGearItemPrefab(string name) => GearItem.LoadGearItemPrefab(name).GetComponent<GearItem>();
-        public static GearItem GetGearItemPrefab(GearItem item) => GearItem.LoadGearItemPrefab(item.name).GetComponent<GearItem>();
-        public static ToolsItem GetToolItemPrefab(string name) => GearItem.LoadGearItemPrefab(name).GetComponent<ToolsItem>();
+        public static GearItem GetGearItemPrefab(string name)
+        {
+            return GearItem.LoadGearItemPrefab(name);
+        }
+        public static ToolsItem GetToolItemPrefab(string name)
+        {
+            return GearItem.LoadGearItemPrefab(name).GetComponent<ToolsItem>();
+        }
         public static string? NormalizeName(string name)
         {
             if (name == null) return null;
-            else return name.Replace("(Clone)", "").Trim().ToLowerInvariant();
+            else return name.Replace("(Clone)", "").Trim();
         }
 
         [return: NotNullIfNotNull("component")]
         public static T? GetComponentSafe<T>(this Component? component) where T : Component
         {
-            return component == null ? default : GetComponentSafe<T>(component.GetGameObject());
+            return component == null ? default : GetComponentSafe<T>(component.gameObject);
         }
 
         [return: NotNullIfNotNull("gameObject")]
@@ -28,7 +33,7 @@ namespace FuelManager
         [return: NotNullIfNotNull("component")]
         public static T? GetOrCreateComponent<T>(this Component? component) where T : Component
         {
-            return component == null ? default : GetOrCreateComponent<T>(component.GetGameObject());
+            return component == null ? default : GetOrCreateComponent<T>(component.gameObject);
         }
 
         [return: NotNullIfNotNull("gameObject")]
@@ -44,14 +49,14 @@ namespace FuelManager
         }
 
         [return: NotNullIfNotNull("component")]
-        internal static GameObject? GetGameObject(this Component? component)
+        public static GameObject? GetGameObject(this Component? component)
         {
             try
             {
                 return component == null ? default : component.gameObject;
             }
 #if DEBUG
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 Logger.LogError($"Returning null since this could not obtain a Game Object from the component. Stack trace:\n{exception.Message}", Color.red);
             }
@@ -62,7 +67,7 @@ namespace FuelManager
             return null;
         }
 
-        internal static T GetItem<T>(string name, string? reference = null) where T : Component
+        public static T GetItem<T>(string name, string? reference = null) where T : Component
         {
             GameObject? gameObject = AssetBundleUtils.LoadAsset<GameObject>(name);
             if (gameObject == null)
@@ -79,7 +84,7 @@ namespace FuelManager
             return targetType;
         }
 
-        internal static T[] GetItems<T>(string[] names, string? reference = null) where T : Component
+        public static T[] GetItems<T>(string[] names, string? reference = null) where T : Component
         {
             T[] result = new T[names.Length];
 
