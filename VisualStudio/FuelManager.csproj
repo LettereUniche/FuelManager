@@ -13,8 +13,6 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>TheLongDark</PackageTags>
 		<NeutralLanguage>en</NeutralLanguage>
-		<AssemblyVersion>1.2.2</AssemblyVersion>
-		<FileVersion>1.2.2</FileVersion>
 	</PropertyGroup>
 
   <PropertyGroup>
@@ -22,7 +20,6 @@
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <Nullable>enable</Nullable>
 	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	  <Version>1.2.2</Version>
 	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
