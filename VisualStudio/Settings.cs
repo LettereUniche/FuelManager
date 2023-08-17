@@ -1,4 +1,10 @@
-﻿namespace FuelManager
+﻿#define RMU
+
+#if RMU
+using RadialMenuUtilities;
+#endif
+
+namespace FuelManager
 {
     public enum LoggingLevel
     {
@@ -9,12 +15,15 @@
     {
         internal static bool RadialOverride { get; set; } = false;
         internal static Settings Instance { get; } = new();
+#if RMU
         internal static CustomRadialMenu? radialMenu { get; set; }
+#endif
         internal static List<string> GearNames { get; } = new List<string>
         { "GEAR_GasCan", "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" };
 
         internal static List<GearItem> GearItems { get; set; } = new();
 
+#if RMU
         [Section("Gameplay Settings")]
         [Name("Use Radial Menu")]
         [Description("Enables a new radial menu for you to easily access your fuel containers.")]
@@ -23,6 +32,7 @@
         [Name("Key for Radial Menu")]
         [Description("The key you press to show the new menu.")]
         public KeyCode keyCode = KeyCode.G;
+#endif
 
         [Section("Main")]
         [Name("Refuel Time")]
@@ -56,11 +66,11 @@
         [Slider(0f, 100f, 101)]
         public float challengeSpawnExpectation = 50f;
 
-        [Section("Logging")]
+        //[Section("Logging")]
 
-        [Name("Level")]
-        [Description("Depending on the level of logging, you will get different logging")]
-        public LoggingLevel loggingLevel = LoggingLevel.Debug;
+        //[Name("Level")]
+        //[Description("Depending on the level of logging, you will get different logging")]
+        //public LoggingLevel loggingLevel = LoggingLevel.Debug;
 
         protected override void OnConfirm()
         {
@@ -110,14 +120,18 @@
             SetFieldVisible(nameof(interloperSpawnExpectation), true);
             SetFieldVisible(nameof(challengeSpawnExpectation), true);
 
+#if RMU
             SetFieldVisible(nameof(enableRadial), !RadialOverride);
             SetFieldVisible(nameof(keyCode), !RadialOverride);
+#endif
         }
 
         internal static void OnLoad(bool EnableRadial)
         {
             Instance.AddToModSettings(BuildInfo.GUIName);
+#if RMU
             Instance.ConstructRadialArm(EnableRadial);
+#endif
             Instance.Refresh();
         }
     }
