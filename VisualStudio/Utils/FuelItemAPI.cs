@@ -1,37 +1,46 @@
-﻿using static Il2Cpp.ak.wwise.core;
-using UnityEngine.Analytics;
-using Il2Cpp;
-
-namespace FuelManager
+﻿namespace FuelManager
 {
-    public class FuelItemAPI
+    public static class FuelItemAPI
     {
-
         /// <summary>
         /// This should only be used to add repair to already existing items. Otherwise use the Modcomponent function
         /// </summary>
         /// <param name="gi"></param>
         public static void AddRepair(GearItem gi)
         {
-            if (gi == null)
+            GameObject? target;
+
+            try
             {
-                throw new NullReferenceException();
+                GearItem prefab = ItemUtils.GetGearItemPrefab(gi.name);
+                target = prefab.gameObject;
+            }
+            catch (NullReferenceException)
+            {
+                Logger.LogError($"Current item is null, {gi} NAME: {gi.name} DISPLAYNAME: {gi.DisplayName}");
+                target = gi.gameObject;
             }
 
-            GearItem target = ItemUtilities.GetGearItemPrefab(gi.name);
+            try
+            {
+                Repairable repairable = ItemUtils.GetOrCreateComponent<Repairable>(target);
 
-            Repairable repairable               = ItemUtils.GetOrCreateComponent<Repairable>(target.gameObject);
+                repairable.m_RepairAudio = "Play_RepairingMetal";
+                repairable.m_DurationMinutes = 15;
+                repairable.m_ConditionIncrease = 50;
 
-            repairable.m_RepairAudio            = "Play_RepairingMetal";
-            repairable.m_DurationMinutes        = 15;
-            repairable.m_ConditionIncrease      = 50;
+                repairable.m_RequiredGear = ItemUtils.GetItems<GearItem>(Constants.REPAIR_HARVEST_GEAR);
+                repairable.m_RequiredGearUnits = new int[] { 1 };
 
-            repairable.m_RequiredGear           = ItemUtils.GetItems<GearItem>(Constants.REPAIR_HARVEST_GEAR);
-            repairable.m_RequiredGearUnits      = new int[] { 1 };
-
-            repairable.m_RepairToolChoices      = ItemUtils.GetItems<ToolsItem>(Constants.REPAIR_TOOLS);
-            repairable.m_RequiresToolToRepair   = true;
-            repairable.m_NeverFail              = true;
+                repairable.m_RepairToolChoices = ItemUtils.GetItems<ToolsItem>(Constants.REPAIR_TOOLS);
+                repairable.m_RequiresToolToRepair = true;
+                repairable.m_NeverFail = true;
+            }
+            catch (Exception e)
+            {
+                Logger.LogError($"Creating component Repairable for item {gi.name} failed for reason {e}");
+                throw;
+            }
         }
 
         /// <summary>
@@ -56,9 +65,18 @@ namespace FuelManager
                                      bool requiresTools,
                                      bool NeverFail)
         {
-            if (gi == null) return;
+            GameObject? target;
 
-            GearItem target = ItemUtilities.GetGearItemPrefab(gi.name);
+            try
+            {
+                GearItem prefab = ItemUtils.GetGearItemPrefab(gi.name);
+                target = prefab.gameObject;
+            }
+            catch (NullReferenceException)
+            {
+                Logger.LogError($"Current item is null, {gi} NAME: {gi.name} DISPLAYNAME: {gi.DisplayName}");
+                target = gi.gameObject;
+            }
 
             Repairable repairable               = ItemUtils.GetOrCreateComponent<Repairable>(target.gameObject);
 
@@ -80,9 +98,19 @@ namespace FuelManager
         /// <param name="gi">The GearItem you want to add harvest to</param>
         public static void AddHarvest(GearItem gi)
         {
-            if (gi == null) return;
+            GameObject? target;
 
-            GearItem target = ItemUtilities.GetGearItemPrefab(gi.name);
+            try
+            {
+                GearItem prefab = ItemUtils.GetGearItemPrefab(gi.name);
+                target = prefab.gameObject;
+            }
+            catch (NullReferenceException)
+            {
+                Logger.LogError($"Current item is null, {gi} NAME: {gi.name} DISPLAYNAME: {gi.DisplayName}");
+                target = gi.gameObject;
+            }
+
             Harvest harvest = ItemUtils.GetOrCreateComponent<Harvest>(target.gameObject);
 
             harvest.m_Audio             = "Play_HarvestingMetalSaw";
@@ -98,9 +126,19 @@ namespace FuelManager
 
         public static void AddHarvest(GearItem gi, SkillType skillType)
         {
-            if (gi == null) return;
+            GameObject? target;
 
-            GearItem target             = ItemUtilities.GetGearItemPrefab(gi.name);
+            try
+            {
+                GearItem prefab = ItemUtils.GetGearItemPrefab(gi.name);
+                target = prefab.gameObject;
+            }
+            catch (Exception e)
+            {
+                Logger.LogError($"Getting GearItem<{gi.name}>'s GameObject failed due to {e}");
+                target = gi.gameObject;
+            }
+
             Harvest harvest             = ItemUtils.GetOrCreateComponent<Harvest>(target.gameObject);
 
             harvest.m_Audio             = "Play_HarvestingMetalSaw";
@@ -114,12 +152,21 @@ namespace FuelManager
             harvest.m_GunpowderYield    = 0f;
         }
 
-
         public static void AddHarvest(GearItem gi, string audio, int duration, string[] yieldGear, int[] yieldUnits, SkillType skillType, string[] requiredTools, float gunpowder)
         {
-            if (gi == null) return;
+            GameObject? target;
 
-            GearItem target = ItemUtilities.GetGearItemPrefab(gi.name);
+            try
+            {
+                GearItem prefab = ItemUtils.GetGearItemPrefab(gi.name);
+                target = prefab.gameObject;
+            }
+            catch (NullReferenceException)
+            {
+                Logger.LogError($"Current item is null, {gi} NAME: {gi.name} DISPLAYNAME: {gi.DisplayName}");
+                target = gi.gameObject;
+            }
+
             Harvest harvest                 = ItemUtils.GetOrCreateComponent<Harvest>(target.gameObject);
 
             harvest.m_Audio                 = audio;
@@ -159,9 +206,19 @@ namespace FuelManager
                                          bool isTinder,
                                          bool isWet)
         {
-            if (gi == null) return;
+            GameObject? target;
 
-            GearItem target = ItemUtilities.GetGearItemPrefab(gi.name);
+            try
+            {
+                GearItem prefab = ItemUtils.GetGearItemPrefab(gi.name);
+                target = prefab.gameObject;
+            }
+            catch (NullReferenceException)
+            {
+                Logger.LogError($"Current item is null, {gi} NAME: {gi.name} DISPLAYNAME: {gi.DisplayName}");
+                target = gi.gameObject;
+            }
+
             FuelSourceItem fuelSourceItem                   = ItemUtils.GetOrCreateComponent<FuelSourceItem>(target.gameObject);
 
             fuelSourceItem.m_BurnDurationHours              = burnHours;
