@@ -51,7 +51,6 @@
 		<Using Include="MelonLoader" />
 		<Using Include="UnityEngine" />
 		<Using Include="ModSettings" />
-		<Using Include="RadialMenuUtilities" />
 	</ItemGroup>
 
 	<ItemGroup>
