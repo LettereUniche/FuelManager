@@ -1,4 +1,6 @@
-﻿namespace FuelManager
+﻿using Il2CppTLD.Gear;
+
+namespace FuelManager
 {
     internal class Fuel
     {
@@ -244,11 +246,26 @@
         #endregion
         #region Actions
 
+        //public static void PrepareDrain(GearItem gi)
+        //{
+        //    KeroseneLampItem lamp = gi.gameObject.GetComponent<KeroseneLampItem>();
+
+        //    if (lamp != null)
+        //    {
+        //        if (lamp.IsOn()) lamp.TurnOff();
+        //    }
+        //}
+
         internal static void Drain(GearItem gearItem)
         {
 #if DEBUG
             Logger.Log($"Drain Start");
 #endif
+            //if (gearItem.gameObject.GetComponent<KeroseneLampItem>() != null)
+            //{
+            //    PrepareDrain(gearItem);
+            //}
+
             Panel_Inventory_Examine panel = InterfaceManager.GetPanel<Panel_Inventory_Examine>();
 
             float currentLiters     = GetIndividualCurrentLiters(panel.m_GearItem.GetComponent<GearItem>());
