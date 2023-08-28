@@ -15,7 +15,7 @@
 
         #region Optional
         /// <summary>What the mod does</summary>
-        public const string Description = "Allows draining laterns and moving fuel between containers";
+        public const string Description = "Fuel Manager adds QOL features to assist with managing various fuel items. This includes all features of Better-Fuel-Management";
         /// <summary>Company that made it</summary>
         public const string Company = null;
         /// <summary>A valid download link</summary>
