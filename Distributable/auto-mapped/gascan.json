@@ -22,8 +22,8 @@
 
         "LiquidType" : "Kerosene",
         "LiquidCapacityLiters" : 6.0,
-        "RandomizedQuantity" : false,
-        "LiquidLiters" : 0.0
+        "RandomizedQuantity" : true,
+        "LiquidLiters" : 0.5
     },
     "ModHarvestableBehaviour": {
         "Audio" : "Play_HarvestingMetalSaw",

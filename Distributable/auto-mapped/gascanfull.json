@@ -1,7 +1,7 @@
 {
     "ModLiquidComponent": {
-        "DisplayNameLocalizationId" : "GAMEPLAY_GasCan",
-        "DescriptionLocalizatonId" : "GAMEPLAY_GasCanDescription",
+        "DisplayNameLocalizationId" : "GAMEPLAY_GasCanFull",
+        "DescriptionLocalizatonId" : "GAMEPLAY_GasCanFullDescription",
         "InventoryActionLocalizationId" : "",
         "WeightKG": 0.0,
         "DaysToDecay" : 0.0,
