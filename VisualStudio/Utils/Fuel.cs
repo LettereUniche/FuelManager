@@ -345,11 +345,14 @@ namespace FuelManager
 
             float totalInventoryFuel        = GameManager.GetPlayerManagerComponent().GetCapacityLiters(GearLiquidTypeEnum.Kerosene);
             float totalInventoryCapacity    = GameManager.GetPlayerManagerComponent().GetTotalLiters(GearLiquidTypeEnum.Kerosene);
-#if DEBUG
-            Logger.Log($"currentLiters: {currentLiters}, capacityLiters: {capacityLiters}, totalCurrent: {totalCurrent}");
-            Logger.Log($"item is {gearItem.name}, GetComponent is {gearItem.GetComponent<GearItem>().name}");
-            Logger.Log($"panel item is {panel.m_GearItem.name}, panel item GetComponent is {panel.m_GearItem.GetComponent<GearItem>().name}");
-#endif
+
+            if (Settings.Instance.ExtraLogging)
+            {
+                Logger.Log($"currentLiters: {currentLiters}, capacityLiters: {capacityLiters}, totalCurrent: {totalCurrent}");
+                Logger.Log($"item is {gearItem.name}, GetComponent is {gearItem.GetComponent<GearItem>().name}");
+                Logger.Log($"panel item is {panel.m_GearItem.name}, panel item GetComponent is {panel.m_GearItem.GetComponent<GearItem>().name}");
+            }
+
             if (Il2Cpp.Utils.Approximately(currentLiters, capacityLiters, MIN_LITERS))
             {
                 GameAudioManager.PlayGUIError();

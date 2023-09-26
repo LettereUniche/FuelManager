@@ -50,6 +50,10 @@ namespace FuelManager
         [Description("Will use dirty water first if there is any")]
         public bool UseNonPotableWaterSupply = false;
 
+        [Name("Logging")]
+        [Description("Enables extra logging that will spam your log")]
+        public bool ExtraLogging = false;
+
         [Section("Spawn Settings")]
 
         [Name("Pilgram / Very High Loot Custom")]
