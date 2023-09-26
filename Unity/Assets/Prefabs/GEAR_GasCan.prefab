@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8589645407330466797}
   - component: {fileID: 6981808693712094893}
   - component: {fileID: 5354353320630298918}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: GasCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 6716482949254839982}
   - component: {fileID: 8552511699842191190}
   - component: {fileID: -5218537320621165191}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: GEAR_GasCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}

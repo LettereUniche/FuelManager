@@ -33,6 +33,10 @@ MonoBehaviour:
     m_Address: GEAR_GasCanFull
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 657cf8424498218428f984c311ee4d2e
+    m_Address: gascan
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c931cfea48d29104795061ff76b14cc2, type: 2}
   m_SchemaSet:
