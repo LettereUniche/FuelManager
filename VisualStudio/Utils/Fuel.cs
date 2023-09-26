@@ -50,7 +50,7 @@ namespace FuelManager
                 if (gearItem == null || gearItem == excludeItem) continue;
 
                 LiquidItem liquidItem = gearItem.m_LiquidItem;
-                if (liquidItem == null || liquidItem.m_LiquidType != GearLiquidTypeEnum.Kerosene) continue;
+                if (liquidItem == null || liquidItem.m_LiquidType != FuelManager.GetKerosene()) continue;
 
                 float previousLiters = liquidItem.m_LiquidLiters;
                 liquidItem.m_LiquidLiters = Mathf.Clamp(liquidItem.m_LiquidLiters + remaining, 0f, liquidItem.m_LiquidCapacityLiters);
@@ -74,7 +74,7 @@ namespace FuelManager
         {
             if (gearItem == null) return false;
             if (!gearItem.m_LiquidItem) return false;
-            return gearItem.m_LiquidItem.m_LiquidType == GearLiquidTypeEnum.Kerosene;
+            return gearItem.m_LiquidItem.m_LiquidType == FuelManager.GetKerosene();
         }
 
         /// <summary>
@@ -343,8 +343,8 @@ namespace FuelManager
             float capacityLiters            = GetIndividualCapacityLiters(panel.m_GearItem.GetComponent<GearItem>());
             float totalCurrent              = GetTotalCurrentLiters(panel.m_GearItem.GetComponent<GearItem>());
 
-            float totalInventoryFuel        = GameManager.GetPlayerManagerComponent().GetCapacityLiters(GearLiquidTypeEnum.Kerosene);
-            float totalInventoryCapacity    = GameManager.GetPlayerManagerComponent().GetTotalLiters(GearLiquidTypeEnum.Kerosene);
+            float totalInventoryFuel        = GameManager.GetPlayerManagerComponent().GetCapacityLiters(FuelManager.GetKerosene());
+            float totalInventoryCapacity    = GameManager.GetPlayerManagerComponent().GetTotalLiters(FuelManager.GetKerosene());
 
             if (Settings.Instance.ExtraLogging)
             {
