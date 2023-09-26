@@ -20,7 +20,7 @@ namespace FuelManager
         /// <summary>
         /// This prints all the required test info ONLY while in a savegame. You must have in your inventory: GEAR_LampFuel, GEAR_LampFuelFull and GEAR_JerrycanRusty
         /// </summary>
-        private void UpdateTest()
+        private static void UpdateTest()
         {
             if (GameManager.IsMainMenuActive())
             {
@@ -80,10 +80,42 @@ namespace FuelManager
             Logger.LogUpdate(UpdateTestResults);
         }
 
-        public void RegisterCommands()
+        private static void UpdateAllGearItems()
+        {
+            var inv = GameManager.GetInventoryComponent();
+            for (int i = 0; i < inv.m_Items.Count; i++)
+            {
+                if (inv.m_Items[i] is null) continue;
+                GearItem gi = inv.m_Items[i];
+
+                if (gi is null) continue;
+
+                if (ItemUtils.NormalizeName(gi.name) == "GEAR_JerrycanRusty")
+                {
+                    FuelItemAPI.RefreshRepairComponent(gi);
+                    FuelItemAPI.RefreshHarvestComponent(gi);
+                    continue;
+                }
+                if (ItemUtils.NormalizeName(gi.name) == "GEAR_LampFuel")
+                {
+                    FuelItemAPI.RefreshRepairComponent(gi);
+                    FuelItemAPI.RefreshHarvestComponent(gi);
+                    continue;
+                }
+                if (ItemUtils.NormalizeName(gi.name) == "GEAR_LampFuelFull")
+                {
+                    FuelItemAPI.RefreshRepairComponent(gi);
+                    FuelItemAPI.RefreshHarvestComponent(gi);
+                    continue;
+                }
+            }
+        }
+
+        public static void RegisterCommands()
         {
             uConsole.RegisterCommand("FM_UpdateTest", new Action(UpdateTest));
             uConsole.RegisterCommand("FM_PrintChangeLogs", new Action(PatchNotes.PrintChangeLog));
+            uConsole.RegisterCommand("UpdateAllGearItems", new Action(UpdateAllGearItems));
         }
     }
 }
