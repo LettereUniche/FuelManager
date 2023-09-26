@@ -6,6 +6,7 @@
         {
             Settings.OnLoad(false);
             Spawns.AddToModComponent();
+            ConsoleCommands.RegisterCommands();
         }
     }
 }
