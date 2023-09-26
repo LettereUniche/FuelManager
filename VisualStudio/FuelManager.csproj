@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	
 	<PropertyGroup>
-		<TheLongDarkPath>P:\Steam\steamapps\common\TheLongDark</TheLongDarkPath>
+		<TheLongDarkPath>O:\SteamLibrary\steamapps\common\TheLongDark</TheLongDarkPath>
 		<Title>Fuel Manager</Title>
 		<Authors>The Illusion</Authors>
 		<Company>null</Company>
