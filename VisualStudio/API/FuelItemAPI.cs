@@ -1,7 +1,29 @@
 ﻿namespace FuelManager
 {
-    public static class FuelItemAPI
+    [RegisterTypeInIl2Cpp]
+    public class FuelItemAPI : MonoBehaviour
     {
+        public static void RefreshRepairComponent(GearItem? gi)
+        {
+            if (gi is null)
+            {
+                Logger.LogWarning($"Requested GearItem is null");
+                return;
+            }
+
+            Repairable? repair = gi.gameObject.GetComponent<Repairable>();
+
+            if (repair is null)
+            {
+                Logger.LogWarning($"Requested GearItem {gi.name} does not have the Repairable Component");
+                return;
+            }
+            else
+            {
+                repair = null;
+            }
+        }
+
         public static void AddRepair(
             GearItem? gi,
             string[] requiredGear,
@@ -19,7 +41,7 @@
 
             if (Target is null) return;
 
-            if (Target.GetComponent<Repairable>() != null) return;
+            if (Target.GetComponent<Repairable>() is not null) return;
 
             Repairable repairable = ItemUtils.GetOrCreateComponent<Repairable>(Target);
 
@@ -43,6 +65,27 @@
             }
         }
 
+        public static void RefreshHarvestComponent(GearItem? gi)
+        {
+            if (gi is null)
+            {
+                Logger.LogWarning($"Requested GearItem is null");
+                return;
+            }
+
+            Harvest? harvest = gi.gameObject.GetComponent<Harvest>();
+
+            if (harvest is null)
+            {
+                Logger.LogWarning($"Requested GearItem {gi.name} does not have the Repairable Component");
+                return;
+            }
+            else
+            {
+                harvest = null;
+            }
+        }
+
         public static void AddHarvest(
             GearItem gi,
             string[] YieldGear,
@@ -59,7 +102,7 @@
 
             if (Target is null) return;
 
-            if (Target.GetComponent<Harvest>() != null) return;
+            if (Target.GetComponent<Harvest>() is not null) return;
 
             Harvest harvest = ItemUtils.GetOrCreateComponent<Harvest>(Target);
 
