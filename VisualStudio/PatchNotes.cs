@@ -96,7 +96,18 @@
                     "Removed GetComponent<GearItem>() from a bunch of calls and methods",
                     "Targeted GameObject for FuelItemAPI method's",
                     "Switched to using GearItem.DisplayName for checks",
-                    "RMU dedicated code changes"
+                    "RMU dedicated code changes",
+                    "Updated GasCan properties: WeightKG: 0.1, InitialCondition: High, InspectDistance: 0.5"
+                })
+            );
+            ChangeNotes.Add(
+                new Patch(
+                    new Version(1, 2, 5),
+                new string[]
+                {
+                    "Game Update 2.23 on 2023/09/26",
+                    "Game removed GearLiquidTypeEnum, updated calls to use FuelManager.GetKerosene()",
+                    "Removed Repairable from all vanilla items as its still not working. Harvest remains active"
                 })
             );
         }
