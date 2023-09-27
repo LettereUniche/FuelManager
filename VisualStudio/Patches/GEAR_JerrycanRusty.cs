@@ -11,7 +11,7 @@
 
             if (__instance.name != null && ItemUtils.NormalizeName(__instance.name) == "GEAR_JerrycanRusty")
             {
-                FuelItemAPI.AddRepair(__instance, Constants.REPAIR_HARVEST_GEAR, new int[] { 1 }, Constants.REPAIR_TOOLS, "Play_RepairingMetal");
+                //FuelItemAPI.AddRepair(__instance, Constants.REPAIR_HARVEST_GEAR, new int[] { 1 }, Constants.REPAIR_TOOLS, "Play_RepairingMetal");
                 FuelItemAPI.AddHarvest(__instance, Constants.REPAIR_HARVEST_GEAR, new int[] { 2 }, Constants.HARVEST_TOOLS, "Play_HarvestingMetalSaw");
             }
         }
