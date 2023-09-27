@@ -1,11 +1,13 @@
-﻿namespace FuelManager
+﻿using Il2CppTLD.Gear;
+
+namespace FuelManager
 {
-    [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.AddLiquidToInventory), new Type[] { typeof(float), typeof(GearLiquidTypeEnum) })]
+    [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.AddLiquidToInventory), new Type[] { typeof(float), typeof(LiquidType) })]
     internal class PlayerManager_AddLiquidToInventory
     {
-        private static void PostFix(PlayerManager __instance, float litersToAdd, GearLiquidTypeEnum liquidType, ref float __result)
+        private static void PostFix(PlayerManager __instance, float litersToAdd, LiquidType liquidType, ref float __result)
         {
-            if (__instance != null && liquidType == GearLiquidTypeEnum.Kerosene && __result != litersToAdd)
+            if (__instance != null && liquidType == FuelManager.GetKerosene() && __result != litersToAdd)
             {
                 MessageUtils.SendLostMessageDelayed(litersToAdd - __result);
 
