@@ -98,7 +98,7 @@ namespace FuelManager
             Refresh();
             base.OnConfirm();
         }
-
+#if RMU
         private void ConstructRadialArm(bool enable)
         {
             RadialOverride = enable;
@@ -131,7 +131,7 @@ namespace FuelManager
                 throw;
             }
         }
-
+#endif
         private void Refresh()
         {
             SetFieldVisible(nameof(refuelTime), true);
