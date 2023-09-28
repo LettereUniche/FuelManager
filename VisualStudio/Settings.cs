@@ -1,4 +1,4 @@
-﻿#define RMU
+﻿//#define RMU
 
 #if RMU
 using RadialMenuUtilities;
