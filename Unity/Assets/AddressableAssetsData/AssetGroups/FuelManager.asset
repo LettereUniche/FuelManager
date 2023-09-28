@@ -29,12 +29,16 @@ MonoBehaviour:
     m_Address: GEAR_GasCan
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 6a1b23bf4c805d04998863f3a14c3368
-    m_Address: GEAR_GasCanFull
+  - m_GUID: 058aa46f8762a5e4495a7b4f8f641f8c
+    m_Address: Shader Forge_TLD_StandardSkinned
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 657cf8424498218428f984c311ee4d2e
     m_Address: gascan
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ccd2d47883e763f44b151fd4cd9cb975
+    m_Address: GEAR_GasCanFull
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
