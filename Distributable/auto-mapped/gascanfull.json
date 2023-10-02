@@ -32,6 +32,16 @@
         "YieldNames"                        : ["GEAR_ScrapMetal"],
         "RequiredToolNames"                 : ["GEAR_Hacksaw"]
     },
+    "ModMillableBehaviour": {
+        "RepairDurationMinutes"             : 15,
+        "RepairRequiredGear"                : ["GEAR_ScrapMetal"],
+        "RepairRequiredGearUnits"           : [2],
+        "CanRestoreFromWornOut"             : true,
+        "RecoveryDurationMinutes"           : 60,
+        "RestoreRequiredGear"               : ["GEAR_ScrapMetal"],
+        "RestoreRequiredGearUnits"          : [4],
+        "Skill"                             : "None"
+    },
     "ModRepairableBehaviour": {
         "Audio"                             : "Play_RepairingMechanical",
         "Minutes"                           : 10,
