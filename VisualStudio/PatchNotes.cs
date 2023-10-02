@@ -110,6 +110,15 @@
                     "Removed Repairable from all vanilla items as its still not working. Harvest remains active"
                 })
             );
+            ChangeNotes.Add(
+                new Patch(
+                    new Version(1, 2, 6),
+                new string[]
+                {
+                    "Add last RMU conditional",
+                    "Disable RMU"
+                })
+            );
         }
 
         public static void PrintChangeLog()
