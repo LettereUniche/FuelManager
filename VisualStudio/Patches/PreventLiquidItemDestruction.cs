@@ -32,7 +32,7 @@
                 {
                     LiquidItem liquidItem = go.GetComponent<LiquidItem>();
 
-                    if (liquidItem != null && liquidItem.m_LiquidType == FuelManager.GetKerosene())
+                    if (liquidItem != null && liquidItem.LiquidType == FuelManager.GetKerosene())
                     {
                         return false;
                     }
