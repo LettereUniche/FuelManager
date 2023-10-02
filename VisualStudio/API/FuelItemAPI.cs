@@ -3,6 +3,7 @@
     [RegisterTypeInIl2Cpp]
     public class FuelItemAPI : MonoBehaviour
     {
+        #region Repair
         public static void RefreshRepairComponent(GearItem? gi)
         {
             if (gi is null)
@@ -64,7 +65,8 @@
                 Logger.Log($"Reason: {e}");
             }
         }
-
+        #endregion
+        #region Harvest
         public static void RefreshHarvestComponent(GearItem? gi)
         {
             if (gi is null)
@@ -126,7 +128,23 @@
             }
 
         }
+        #endregion
+        #region Millable
+        public static void AddMillable(
+            GearItem target,
+            int RepairTime,
+            List<string> RequiredGear,
+            List<int> RequiredGearUnits,
+            bool CanRepairWornOut,
+            int WornOutTime,
+            List<string> RequiredGearWorn,
+            List<int> RequiredGearUnitsWorn
+            )
+        {
 
+        }
+        #endregion
+        #region Fuel Source
         public static void AddFuelSource(GearItem gi,
                                          float burnHours,
                                          float fireAge,
@@ -169,7 +187,7 @@
                 Logger.Log($"Reason: {e}");
             }
         }
-
+        #endregion
         public static GameObject? GetInstancedObject(GearItem gi)
         {
             GameObject? Target      = null;
