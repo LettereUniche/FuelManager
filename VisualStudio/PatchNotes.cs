@@ -1,10 +1,14 @@
-﻿namespace FuelManager
+﻿using System.Text.Json.Serialization;
+
+namespace FuelManager
 {
     public class Patch
     {
 #nullable disable
-        private Version m_Version { get; set; }
-        private string[] Changes { get; set; }
+        [JsonInclude]
+        public Version m_Version { get; set; }
+        [JsonInclude]
+        public List<string> Changes { get; set; }
         public Patch Instance { get; set; } = null;
 
         /// <summary>
@@ -12,31 +16,12 @@
         /// </summary>
         /// <param name="m_Version"></param>
         /// <param name="Changes"></param>
-        public Patch(Version m_Version, string[] Changes)
+        public Patch(Version m_Version, List<string> Changes)
         {
             Instance = this;
             this.m_Version = m_Version;
             this.Changes = Changes;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Version GetVersion()
-        {
-            return this.m_Version;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string[] GetStrings()
-        {
-            return this.Changes;
-        }
-
 #nullable enable
     }
 
@@ -52,7 +37,7 @@
             ChangeNotes.Add(
             new Patch(
                 new Version(1, 2, 0),
-                new string[]
+                new List<string>
                 {
                     "Change _settings to Instance",
                     "Add a new Constants class",
@@ -66,7 +51,7 @@
             ChangeNotes.Add(
             new Patch(
                 new Version(1, 2, 1),
-                new string[]
+                new List<string>
                 {
                     "Nothing notworthy, minor change to permit easier log reading"
                 })
@@ -74,7 +59,7 @@
             ChangeNotes.Add(
             new Patch(
                 new Version(1, 2, 2),
-                new string[]
+                new List<string>
                 {
                     "Disable radial as HL changed how this works. Requires work on RMU"
                 })
@@ -82,7 +67,7 @@
             ChangeNotes.Add(
             new Patch(
                 new Version(1,2,3),
-                new string[]
+                new List<string>
                 {
                     "Changed GearItem.Deserialize to GearItem.Awake as the former was no longer working"
                 })
@@ -90,7 +75,7 @@
             ChangeNotes.Add(
             new Patch(
                 new Version(1,2,4),
-                new string[]
+                new List<string>
                 {
                     "Add Try|Catch too all FuelItemAPI methods",
                     "Removed GetComponent<GearItem>() from a bunch of calls and methods",
@@ -103,7 +88,7 @@
             ChangeNotes.Add(
                 new Patch(
                     new Version(1, 2, 5),
-                new string[]
+                new List<string>
                 {
                     "Game Update 2.23 on 2023/09/26",
                     "Game removed GearLiquidTypeEnum, updated calls to use FuelManager.GetKerosene()",
@@ -113,7 +98,7 @@
             ChangeNotes.Add(
                 new Patch(
                     new Version(1, 2, 6),
-                new string[]
+                new List<string>
                 {
                     "Add last RMU conditional",
                     "Disable RMU"
@@ -122,7 +107,7 @@
             ChangeNotes.Add(
                 new Patch(
                     new Version(1, 2, 7),
-                new string[]
+                new List<string>
                 {
                     "Merge PR by Elderly-Emre",
                     "Add Modders Gear toolbox optional version"
@@ -134,12 +119,12 @@
         {
             for (int i = 0; i < ChangeNotes.Count; i++)
             {
-                Logger.Log($"Version: {ChangeNotes[i].Instance.GetVersion()}");
+                Logger.Log($"Version: {ChangeNotes[i].Instance.m_Version}");
                 Logger.Log("Changes:");
 
-                for (int v = 0; v < ChangeNotes[i].Instance.GetStrings().Length; v++)
+                for (int v = 0; v < ChangeNotes[i].Instance.Changes.Count; v++)
                 {
-                    Logger.Log($"\t{ChangeNotes[i].Instance.GetStrings()[v]}");
+                    Logger.Log($"\t{ChangeNotes[i].Instance.Changes[v]}");
                 }
             }
         }
