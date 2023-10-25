@@ -33,6 +33,14 @@ namespace FuelManager
         [Description("The key you press to show the new menu.")]
         public KeyCode keyCode = KeyCode.G;
 #endif
+        [Section("Kerosene Lamp refueling")]
+
+        [Name("Enable")]
+        [Description("If your holding a lamp and all other conditions are met, this will refuel the lamp when you press the hotkey below")]
+        public bool EnableRefuelLampKey = false;
+
+        [Name("Refuel Lamp Hotkey")]
+        public KeyCode RefuelLampKey = KeyCode.R;
 
         [Section("Main")]
 
@@ -121,13 +129,13 @@ namespace FuelManager
                 if (RadialOverride) return;
                 else
                 {
-                    Logger.LogError("MissingMethodException: Either your missing RadialMenuUtilies or your version of this mod or RMU is outdated", Color.red);
+                    Logging.LogError("MissingMethodException: Either your missing RadialMenuUtilies or your version of this mod or RMU is outdated", Color.red);
                     throw;
                 }
             }
             catch
             {
-                Logger.LogError($"Threw exception while attempting to create new radial menu");
+                Logging.LogError($"Threw exception while attempting to create new radial menu");
                 throw;
             }
         }

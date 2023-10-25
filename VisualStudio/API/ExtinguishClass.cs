@@ -8,10 +8,12 @@ namespace FuelManager
 {
     public class ExtinguishCallback
     {
+#pragma warning disable IDE1006 // Naming Styles
         public static Panel_ActionPicker? __instance { get; set; }
         private static Fire? fire { get; set; }
         private static WaterSupply cleanWaterSupply { get; } = GameManager.GetInventoryComponent().GetPotableWaterSupply().m_WaterSupply;
         private static WaterSupply dirtyWaterSupply { get; } = GameManager.GetInventoryComponent().GetNonPotableWaterSupply().m_WaterSupply;
+#pragma warning restore IDE1006 // Naming Styles
 
         public static bool HasFire()
         {
@@ -43,8 +45,8 @@ namespace FuelManager
                 // GAMEPLAY_FM_Extinguish_Failed
                 HUDMessage.AddMessage("Not Enough Water", false, true);
                 GameAudioManager.PlayGUIError();
-                Logger.Log($"Amount of clean water: {cleanWaterSupply.m_VolumeInLiters}");
-                Logger.Log($"Amount of dirty water: {dirtyWaterSupply.m_VolumeInLiters}, enabled: {Settings.Instance.UseNonPotableWaterSupply}");
+                Logging.Log($"Amount of clean water: {cleanWaterSupply.m_VolumeInLiters}");
+                Logging.Log($"Amount of dirty water: {dirtyWaterSupply.m_VolumeInLiters}, enabled: {Settings.Instance.UseNonPotableWaterSupply}");
             }
         }
 
@@ -69,7 +71,7 @@ namespace FuelManager
             }
             else
             {
-                Logger.LogError("Fire not found");
+                Logging.LogError("Fire not found");
             }
         }
     }

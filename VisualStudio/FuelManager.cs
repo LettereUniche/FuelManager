@@ -2,8 +2,12 @@
 
 namespace FuelManager
 {
-    internal class FuelManager : MelonMod
+    internal class Main : MelonMod
     {
+        public static GearItem? Target { get; set; }
+        public static float MIN_LITERS { get; } = 0.001f;
+        public static string REFUEL_AUDIO { get; } = "Play_SndActionRefuelLantern";
+
         public static LiquidType GetKerosene()
         {
             try
@@ -12,27 +16,7 @@ namespace FuelManager
             }
             catch
             {
-                Logger.LogError("LiquidType.GetKerosene() was not found");
-                throw;
-            }
-        }
-
-        public static LiquidType GetLiquid(string liquid)
-        {
-            try
-            {
-                return liquid.ToLowerInvariant() switch
-                {
-                    "potable"       => LiquidType.GetPotableWater(),
-                    "nonpotable"    => LiquidType.GetNonPotableWater(),
-                    "kerosene"      => LiquidType.GetKerosene(),
-                    "antiseptic"    => LiquidType.GetAntiseptic(),
-                    _ => throw new BadMemeException($"string does not match existing LiquidType's, {liquid.ToLowerInvariant()}"),
-                };
-            }
-            catch
-            {
-                Logger.LogError("LiquidType.GetKerosene() was not found");
+                Logging.LogError("LiquidType.GetKerosene() was not found");
                 throw;
             }
         }
@@ -42,6 +26,38 @@ namespace FuelManager
             Settings.OnLoad(false);
             Spawns.AddToModComponent();
             ConsoleCommands.RegisterCommands();
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            if (GameManager.IsEmptySceneActive()
+                || GameManager.IsBootSceneActive()
+                || GameManager.IsMainMenuActive()
+                || GameManager.m_IsPaused
+                || InterfaceManager.IsOverlayActiveCached())
+            {
+                return;
+            }
+
+            try
+            {
+                if (Settings.Instance.EnableRefuelLampKey)
+                {
+                    GearItem gi = GameManager.GetPlayerManagerComponent().m_ItemInHands;
+                    if (gi == null) return;
+
+                    KeroseneLampItem lamp = gi.GetComponent<KeroseneLampItem>();
+                    if (lamp == null) return;
+
+                    if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.Instance.RefuelLampKey))
+                    {
+                        FuelUtils.Refuel(gi, false, null);
+                    }
+                }
+            }
+            catch { }
         }
     }
 }

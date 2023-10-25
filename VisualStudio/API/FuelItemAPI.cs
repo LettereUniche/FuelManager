@@ -8,7 +8,7 @@
         {
             if (gi is null)
             {
-                Logger.LogWarning($"Requested GearItem is null");
+                Logging.LogWarning($"Requested GearItem is null");
                 return;
             }
 
@@ -16,12 +16,14 @@
 
             if (repair is null)
             {
-                Logger.LogWarning($"Requested GearItem {gi.name} does not have the Repairable Component");
+                Logging.LogWarning($"Requested GearItem {gi.name} does not have the Repairable Component");
                 return;
             }
             else
             {
-                repair = null;
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+                repair = null; // Want this to be null in order to remove the component already assigned
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
             }
         }
 
@@ -44,7 +46,7 @@
 
             if (Target.GetComponent<Repairable>() is not null) return;
 
-            Repairable repairable = ItemUtils.GetOrCreateComponent<Repairable>(Target);
+            Repairable repairable = CommonUtilities.GetOrCreateComponent<Repairable>(Target);
 
             try
             {
@@ -52,17 +54,17 @@
                 repairable.m_DurationMinutes        = duration;
                 repairable.m_ConditionIncrease      = ConditionIncrease;
 
-                repairable.m_RequiredGear           = ItemUtils.GetItems<GearItem>(requiredGear);
+                repairable.m_RequiredGear           = CommonUtilities.GetItems<GearItem>(requiredGear);
                 repairable.m_RequiredGearUnits      = repairUnits;
 
-                repairable.m_RepairToolChoices      = ItemUtils.GetItems<ToolsItem>(extra);
+                repairable.m_RepairToolChoices      = CommonUtilities.GetItems<ToolsItem>(extra);
                 repairable.m_RequiresToolToRepair   = requiresTools;
                 repairable.m_NeverFail              = NeverFail;
             }
             catch (Exception e)
             {
-                Logger.LogError("Error attempting to add Repairable Component");
-                Logger.Log($"Reason: {e}");
+                Logging.LogError("Error attempting to add Repairable Component");
+                Logging.Log($"Reason: {e}");
             }
         }
         #endregion
@@ -71,7 +73,7 @@
         {
             if (gi is null)
             {
-                Logger.LogWarning($"Requested GearItem is null");
+                Logging.LogWarning($"Requested GearItem is null");
                 return;
             }
 
@@ -79,12 +81,14 @@
 
             if (harvest is null)
             {
-                Logger.LogWarning($"Requested GearItem {gi.name} does not have the Repairable Component");
+                Logging.LogWarning($"Requested GearItem {gi.name} does not have the Repairable Component");
                 return;
             }
             else
             {
-                harvest = null;
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+                harvest = null; // Want this to be null in order to remove the component already assigned
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
             }
         }
 
@@ -106,30 +110,31 @@
 
             if (Target.GetComponent<Harvest>() is not null) return;
 
-            Harvest harvest = ItemUtils.GetOrCreateComponent<Harvest>(Target);
+            Harvest harvest = CommonUtilities.GetOrCreateComponent<Harvest>(Target);
 
             try
             {
                 harvest.m_Audio = audio;
                 harvest.m_DurationMinutes = duration;
 
-                harvest.m_YieldGear = ItemUtils.GetItems<GearItem>(YieldGear);
+                harvest.m_YieldGear = CommonUtilities.GetItems<GearItem>(YieldGear);
                 harvest.m_YieldGearUnits = YieldUnits;
 
                 harvest.m_AppliedSkillType = skillType;
-                harvest.m_RequiredTools = ItemUtils.GetItems<ToolsItem>(RequiredTools);
+                harvest.m_RequiredTools = CommonUtilities.GetItems<ToolsItem>(RequiredTools);
 
                 harvest.m_GunpowderYield = 0f;
             }
             catch (Exception e)
             {
-                Logger.LogError("Error while attempting to add Harvest Component");
-                Logger.Log($"Reason: {e}");
+                Logging.LogError("Error while attempting to add Harvest Component");
+                Logging.Log($"Reason: {e}");
             }
 
         }
         #endregion
         #region Millable
+        /*
         public static void AddMillable(
             GearItem target,
             int RepairTime,
@@ -143,6 +148,7 @@
         {
 
         }
+        */
         #endregion
         #region Fuel Source
         public static void AddFuelSource(GearItem gi,
@@ -163,7 +169,7 @@
 
             if (Target is null) return;
 
-            FuelSourceItem fuelSourceItem                   = ItemUtils.GetOrCreateComponent<FuelSourceItem>(Target);
+            FuelSourceItem fuelSourceItem                   = CommonUtilities.GetOrCreateComponent<FuelSourceItem>(Target);
 
             try
             {
@@ -183,8 +189,8 @@
             }
             catch (Exception e)
             {
-                Logger.LogError($"Could not add FuelSourceItem to {gi.name}");
-                Logger.Log($"Reason: {e}");
+                Logging.LogError($"Could not add FuelSourceItem to {gi.name}");
+                Logging.Log($"Reason: {e}");
             }
         }
         #endregion
@@ -203,10 +209,10 @@
             catch (Exception e)
             {
 #if DEBUG
-                Logger.LogSeperator();
-                Logger.LogError($"Could not Instantiate item {gi.name}");
-                Logger.Log($"Reason: {e}");
-                Logger.LogSeperator();
+                Logging.LogSeperator();
+                Logging.LogError($"Could not Instantiate item {gi.name}");
+                Logging.Log($"Reason: {e}");
+                Logging.LogSeperator();
 #endif
             }
 
@@ -215,23 +221,23 @@
                 if (gameObject != null)
                 {
                     GearItem component = gameObject.GetComponent<GearItem>();
-                    prefab = ItemUtils.GetGearItemPrefab(ItemUtils.NormalizeName(component.name)!);
+                    prefab = CommonUtilities.GetGearItemPrefab(CommonUtilities.NormalizeName(component.name)!);
                     Target = prefab.gameObject;
                 }
                 else
                 {
-                    prefab = ItemUtils.GetGearItemPrefab(ItemUtils.NormalizeName(gi.name)!);
+                    prefab = CommonUtilities.GetGearItemPrefab(CommonUtilities.NormalizeName(gi.name)!);
                     Target = prefab.gameObject;
                 }
             }
             catch (Exception e)
             {
 #if DEBUG
-                Logger.LogSeperator();
-                Logger.LogError("Attempting to get the Prefab failed");
-                Logger.Log($"GearItem: {gi.name}");
-                Logger.Log($"Reason: {e}");
-                Logger.LogSeperator();
+                Logging.LogSeperator();
+                Logging.LogError("Attempting to get the Prefab failed");
+                Logging.Log($"GearItem: {gi.name}");
+                Logging.Log($"Reason: {e}");
+                Logging.LogSeperator();
 #endif
 
                 Target = gi.gameObject;
