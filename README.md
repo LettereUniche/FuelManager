@@ -13,6 +13,7 @@ This mod completely replaces [Better-Fuel-Management](https://github.com/ds5678/
 * Transfer fuel between fuel containers.
 * Ability to harvest the Jerry Can and the Lamp Fuel items.
 * Adds a new `GearItem`, the Gas Can. Can hold up to 6L.
+* Ability to refuel Kerosene lamps using a hotkey (https://github.com/Arkhorse/FuelManager/pull/7)
 
 ### Disabled Features:
 * A custom radial menu has been added to make placing fuel containers easier. You can change the key or disable the menu in the Mod Settings.
