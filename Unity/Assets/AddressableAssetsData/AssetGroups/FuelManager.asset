@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: FuelManager
+  m_Name: fuelmanager
   m_EditorClassIdentifier: 
-  m_GroupName: FuelManager
+  m_GroupName: fuelmanager
   m_Data:
     m_SerializedData: []
-  m_GUID: 1dc4bb83772fa4544a8cb444d0296a79
+  m_GUID: 37b6728d68ac8c141b01e45212634215
   m_SerializeEntries:
+  - m_GUID: 9c06895d38aa55543922c9e4fcec283b
+    m_Address: ico_GearItem__GasCanFull
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 42c2791606469964bb5b379bfa325cbf
     m_Address: ico_GearItem__GasCan
     m_ReadOnly: 0
@@ -25,13 +29,21 @@ MonoBehaviour:
     m_Address: GEAR_GasCan
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 058aa46f8762a5e4495a7b4f8f641f8c
+    m_Address: Shader Forge_TLD_StandardSkinned
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 657cf8424498218428f984c311ee4d2e
-    m_Address: Assets/Models/Materials/gascan.mat
+    m_Address: gascan
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ccd2d47883e763f44b151fd4cd9cb975
+    m_Address: GEAR_GasCanFull
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c931cfea48d29104795061ff76b14cc2, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 595ae2a374a2c8e44ba2fc508f78a983, type: 2}
-    - {fileID: 11400000, guid: bff8678df12717c4ea014b184eff1ab0, type: 2}
+    - {fileID: 11400000, guid: bc1432da3606c394e96990d790987fd8, type: 2}
+    - {fileID: 11400000, guid: b9d535a5a4619f24e8edd3bd42616f7a, type: 2}

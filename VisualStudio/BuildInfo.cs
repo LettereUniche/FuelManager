@@ -8,12 +8,14 @@
         /// <summary>Who made the mod</summary>
         public const string Author = "The Illusion";
         /// <summary>Current version (Using Major.Minor.Build) </summary>
-        public const string Version = "1.0.4";
+        public const string Version = "1.2.8";
+        /// <summary>Name used on GUI's, like ModSettings</summary>
+        public const string GUIName = "Fuel Manager";
         #endregion
 
         #region Optional
         /// <summary>What the mod does</summary>
-        public const string Description = "Allows draining laterns and moving fuel between containers";
+        public const string Description = "Fuel Manager adds QOL features to assist with managing various fuel items. This includes all features of Better-Fuel-Management";
         /// <summary>Company that made it</summary>
         public const string Company = null;
         /// <summary>A valid download link</summary>
