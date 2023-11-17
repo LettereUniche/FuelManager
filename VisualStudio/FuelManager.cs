@@ -14,10 +14,9 @@ namespace FuelManager
             {
                 return LiquidType.GetKerosene();
             }
-            catch
+            catch (Exception e)
             {
-                Logging.LogError("LiquidType.GetKerosene() was not found");
-                throw;
+                throw new BadMemeException($"LiquidType.GetKerosene() was not found due to {e.Message}");
             }
         }
 
