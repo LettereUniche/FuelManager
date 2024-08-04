@@ -8,7 +8,7 @@
                             "Polish" : "Kanister",
                             "Traditional Chinese" : "汽油罐",
                             "Simplified Chinese" : "汽油罐",
-                            "Italian" : "Tanica per benzina"
+                            "Italian" : "Contenitore per Benzina"
     },
     "GAMEPLAY_GasCanDescription" : {
                             "English" : "An old gas can. Holds kerosene just as well.",
@@ -19,7 +19,7 @@
                             "Polish" : "Stary kanister. Odpowiedni do przechowywania paliwa.",
                             "Traditional Chinese" : "一個老舊的汽油罐，也可拿來裝燃油。",
                             "Simplified Chinese" : "一个老旧的汽油罐，也可拿来装燃油。",
-                            "Italian" : "Una vecchia tanica per benzina. Può contenere cherosene altrettanto bene."
+                            "Italian" : "Un contenitore per benzina. Può contenere cherosene altrettanto bene."
               
     },
     "GAMEPLAY_BFM_NoFuelCapacityAvailable" : {
@@ -36,7 +36,7 @@
                             "Polish" : "Brak zbiorników z wymaganą pojemnością",
                             "Traditional Chinese" : "沒有未裝滿的容器可用",
                             "Simplified Chinese" : "没有未装满的容器可用",
-                            "Italian" : "Nessun contenitore disponibile con una capacità sufficiente"
+                            "Italian" : "Nessun contenitore ha spazio per la benzina"
     },
     "GAMEPLAY_BFM_Drain" : {
                             "English" : "Drain",
@@ -100,7 +100,7 @@
                             "Polish" : "Zbiornik jest już pusty",
                             "Traditional Chinese" : "已清空",
                             "Simplified Chinese" : "已清空",
-                            "Italian" : "Già vuoto"
+                            "Italian" : "Già Vuoto"
     },
     "GAMEPLAY_BFM_AlreadyFilled" : {
                             "English" : "Already full",
@@ -116,6 +116,6 @@
                             "Polish" : "Zbiornik jest już pełny",
                             "Traditional Chinese" : "已裝滿",
                             "Simplified Chinese" : "已装滿",
-                            "Italian" : "Già pieno"
+                            "Italian" : "Già Pieno"
     }
 }
